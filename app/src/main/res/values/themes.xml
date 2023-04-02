@@ -9,6 +9,7 @@
         <item name="colorPrimary">@color/smalt</item>
         <item name="textInputStyle">@style/Theme.CowboysStore.TextInputLayout</item>
         <item name="materialButtonStyle">@style/Theme.CowboysStore.Button</item>
-        <item name="android:actionBarSize">@dimen/action_bar_high</item>
+        <item name="android:actionBarSize">@dimen/appbar_height</item>
+        <item name="backgroundColor">@color/background_color</item>
     </style>
 </resources>

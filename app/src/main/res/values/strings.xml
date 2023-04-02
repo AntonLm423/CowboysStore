@@ -5,10 +5,14 @@
     <string name="sign_in_password">Password</string>
     <string name="sign_in_login">Login</string>
     <string name="catalog_button_refresh_text">Update</string>
-    <string name="catalog_notice_error">An unexpected error has occurred</string>
+    <string name="catalog_notice_error">There was an error loading data</string>
     <string name="catalog_notice_nodata">As long as it\'s empty</string>
     <string name="catalog_notice_error_message">Detailed error text spanning multiple lines</string>
     <string name="catalog_notice_nodata_message">Try to update, suddenly the goods appeared</string>
     <string name="catalog_button_buy_text">Buy</string>
     <string name="catalog_appbar_title">Catalog</string>
+    <string name="profile_appversion_error">Failed to get application version</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="unknown_error_message">An unexpected error has occurred</string>
+    <string name="profile_app_version">"App "</string>
 </resources>

@@ -2,11 +2,27 @@
 <resources>
 
     <!-- TextAppearance -->
-    <style name="TextAppearance" parent="android:TextAppearance" />
+    <style name="TextAppearance" parent="android:TextAppearance" >
+            <item name="fontFamily">@font/roboto_medium</item>
+            <item name="fontStyle">normal</item>
+    </style>
+
+
     
     <style name="TextAppearance.H1">
         <item name="android:textSize">@dimen/text_h1_size</item>
         <item name="android:lineSpacingExtra">@dimen/text_h1_line</item>
+    </style>
+
+    <style name="TextAppearance.H2">
+        <item name="android:textSize">@dimen/text_h2_size</item>
+        <item name="android:lineSpacingExtra">@dimen/text_h2_line</item>
+    </style>
+
+    <style name="TextAppearance.Title">
+        <item name="android:textSize">@dimen/text_title_size</item>
+        <item name="android:lineSpacingExtra">@dimen/text_title_line</item>
+        <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
     <style name="TextAppearance.TextField">

@@ -2,14 +2,13 @@ package com.example.cowboysstore.presentation.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.cowboysstore.data.repository.Product
+import com.example.cowboysstore.data.model.Product
 import com.example.cowboysstore.databinding.ItemProductBinding
 
 class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
@@ -61,7 +60,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
             textViewPrice.text = product.price + " ₽"
             imageViewPreview.load(product.preview) {
                 crossfade(true)
-                transformations(RoundedCornersTransformation(8f))
+                transformations(RoundedCornersTransformation(16f))
             }
         }
     }

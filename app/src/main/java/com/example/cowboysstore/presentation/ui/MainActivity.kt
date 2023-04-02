@@ -7,7 +7,9 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.add
 import com.example.cowboysstore.R
 import com.example.cowboysstore.presentation.ui.signin.SignInFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
