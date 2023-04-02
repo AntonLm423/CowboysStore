@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">CowboysStore</string>
+    <string name="sign_in_title">Log in</string>
+    <string name="sign_in_login_hint">Login</string>
+    <string name="sign_in_password">Password</string>
+    <string name="sign_in_login">Login</string>
+    <string name="catalog_button_refresh_text">Update</string>
+    <string name="catalog_notice_error">There was an error loading data</string>
+    <string name="catalog_notice_nodata">As long as it\'s empty</string>
+    <string name="catalog_notice_error_message">Detailed error text spanning multiple lines</string>
+    <string name="catalog_notice_nodata_message">Try to update, suddenly the goods appeared</string>
+    <string name="catalog_button_buy_text">Buy</string>
+    <string name="catalog_appbar_title">Catalog</string>
+    <string name="profile_appversion_error">Failed to get application version</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="unknown_error_message">An unexpected error has occurred</string>
+    <string name="profile_app_version">"App "</string>
+    <string name="sign_in_auth_Invalid">Wrong login or password</string>
+    <string name="sign_in_auth_error">Failed to validate data, please try again</string>
+    <string name="sign_in_validation_mail_failed">Incorrect email address</string>
+    <string name="sign_in_validation_password_failed">Password must contain at least 8 characters</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CowboysStore</string>
+    <string name="sign_in_title">Войти</string>
+    <string name="sign_in_login_hint">Логин</string>
+    <string name="sign_in_password">Пароль</string>
+    <string name="sign_in_login">ВОЙТИ</string>
+    <string name="catalog_button_refresh_text">ОБНОВИТЬ</string>
+    <string name="catalog_notice_error">Произошла ошибка загрузки данных</string>
+    <string name="catalog_notice_nodata">Товары не были обнаружены</string>
+    <string name="catalog_notice_error_message">Детальный текст ошибки, занимающий несколько строк</string>
+    <string name="catalog_notice_nodata_message">Попробуйте обновить, вдруг товары появились</string>
+    <string name="catalog_button_buy_text">КУПИТЬ</string>
+    <string name="catalog_appbar_title">Каталог</string>
+    <string name="profile_appversion_error">Не удалось получить версию приложения</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="unknown_error_message">Произошла непредвиденная ошибка</string>
+    <string name="profile_app_version">Приложение</string>
+    <string name="sign_in_auth_Invalid">Неверный логин или пароль</string>
+    <string name="sign_in_auth_error">Не удалось проверить данные, попробуйте повторить попытку</string>
+    <string name="sign_in_validation_mail_failed">Некорректный адрес электронной почты</string>
+    <string name="sign_in_validation_password_failed">Пароль должен содержать не менее 8 символов</string>
+</resources>
