@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--LOADING-->
+    <FrameLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/white">
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.Material.ProgressBar.Large"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:elevation="8dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/smalt"
+            android:indeterminateTintMode="src_in" />
+    </FrameLayout>
+    <!--LOADING-->
+
+   <!-- NOTICE-->
+    <FrameLayout
+        android:id="@+id/layoutNotice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/normal_200"
+            android:layout_marginEnd="@dimen/normal_200">
+
+            <ImageView
+                android:id="@+id/imageViewNoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/textViewError"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/no_data"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/textViewError"
+                style="@style/TextAppearance.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/textViewMessage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewNoData"
+                android:layout_marginTop="@dimen/normal_200"
+                android:text="123"/>
+
+            <TextView
+                android:id="@+id/textViewMessage"
+                style="@style/TextAppearance.Subtitle"
+                android:layout_width="296dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/buttonRefresh"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewError"
+                android:layout_marginTop="@dimen/normal_100"/>
+
+            <Button
+                android:id="@+id/buttonRefresh"
+                style="@style/Theme.CowboysStore.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/catalog_button_refresh_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewMessage"
+                android:layout_marginTop="@dimen/normal_200"
+                android:padding="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+    <!-- NOTICE-->
+    
+</merge>
