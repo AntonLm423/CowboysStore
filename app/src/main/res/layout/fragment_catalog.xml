@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/appbar_height"
+                android:background="@color/smalt">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/catalog_appbar_title"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:lineHeight="24sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/normal_100"
+                    android:layout_marginTop="40dp"/>
+
+                <ImageButton
+                    android:id="@+id/buttonProfile"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_profile"
+                    android:layout_gravity="end"
+                    android:background="@android:color/transparent"
+                    android:layout_marginEnd="@dimen/normal_100"
+                    android:layout_marginTop="40dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"/>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.example.cowboysstore.presentation.customviews.ProgressContainer
+            android:id="@+id/progressContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/appbar_height">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_product" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.example.cowboysstore.presentation.customviews.ProgressContainer>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
