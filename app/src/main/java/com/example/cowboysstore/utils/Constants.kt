@@ -1,7 +1,5 @@
 package com.example.cowboysstore.utils
 
-import android.content.Context
-
 class Constants {
 
     companion object {
@@ -16,6 +14,9 @@ class Constants {
         /* KEYS FOR PRODUCT ID TRANSACTION BETWEEN CATALOG & PRODUCT FRAGMENT */
         const val BUNDLE_KEY = "bundle_key"
         const val PRODUCT_ID_KEY = "product_id_key"
+
+        /* PAGING PAGE SIZE */
+        const val PAGE_SIZE = 9
     }
 
 }

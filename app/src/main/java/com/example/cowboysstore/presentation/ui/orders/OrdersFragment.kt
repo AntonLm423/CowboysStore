@@ -50,6 +50,7 @@ class OrdersFragment : Fragment() {
             getString(R.string.orders_tab_active)
         )
 
+        // TODO : Handling states
         binding.progressContainerOrders.state = ProgressContainer.State.Success
 
         pagerTabAdapter = PagerTabAdapter(this, fragmentList)

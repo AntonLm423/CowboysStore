@@ -10,7 +10,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/background_color">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayoutCatalog"
@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppBarTitle"
-                    android:text="@string/catalog_appbar_title"
+                    android:text="@string/catalog_toolbar_text"
                     android:textColor="@color/white"
                     android:layout_gravity="start"
                     android:layout_marginStart="@dimen/normal_100" />
@@ -49,15 +49,17 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.example.cowboysstore.presentation.customviews.ProgressContainer
-            android:id="@+id/progressContainer"
+            android:id="@+id/progressContainerCatalog"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_anchor="@id/appBarLayoutCatalog"
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                <androidx.recyclerview.widget.RecyclerView
                    android:id="@+id/recyclerViewProducts"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
-                   android:layout_marginTop="?attr/actionBarSize"
                    tools:listitem="@layout/item_product" />
 
         </com.example.cowboysstore.presentation.customviews.ProgressContainer>

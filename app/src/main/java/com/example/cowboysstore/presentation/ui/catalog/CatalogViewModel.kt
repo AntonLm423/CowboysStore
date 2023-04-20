@@ -33,8 +33,17 @@ class CatalogViewModel @Inject constructor(
             val productList = withContext(Dispatchers.IO) {
                 getProductsUseCase.getProducts(accessToken)
             }
-                _uiState.update {
-                    CatalogUiState.Success(productList)
+                if(productList.isEmpty()) {
+                    _uiState.update {
+                        CatalogUiState.Error(
+                            R.string.catalog_notice_no_data,
+                            R.string.catalog_notice_no_data_message
+                            )
+                    }
+                } else {
+                    _uiState.update {
+                        CatalogUiState.Success(productList)
+                    }
                 }
             }
             catch (e: LoadException) {

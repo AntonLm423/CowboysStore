@@ -6,15 +6,14 @@ import retrofit2.http.*
 
 interface RemoteApi
 {
-
-    /*    AUTHORIZATION BY EMAIL & PASSWORD */
+    /* Authorization by email and password */
     @Headers("accept: /", "Content-Type: application/json-patch+json")
     @PUT("user/signin")
     suspend fun authorization(
        @Body request : AuthRequest
         ) : Response<AuthResponse>
 
-    /* GET PRODUCTS LIST */
+    /* Fetch products by token */
     @GET("products")
     @Headers("accept: /")
     suspend fun getProducts(
@@ -23,13 +22,14 @@ interface RemoteApi
         @Query("PageSize") pageSize : Int = 10
     ) : Response<ProductsResponse>
 
-
+    /* Fetch user by token */
     @GET("user")
     @Headers("accept: /")
     suspend fun getProfileByToken(
         @Header("Authorization") accessToken : String
     ) : Response<ProfileResponse>
 
+    /* Fetch product by id */
     @GET("products/{id}")
     @Headers("accept: /")
     suspend fun getProductById(
@@ -39,6 +39,7 @@ interface RemoteApi
         @Query("PageSize") pageSize : Int = 10
     ) : Response<ProductDetailsResponse>
 
+    /* Fetch order by product */
     @GET("orders")
     @Headers("accept: /")
     suspend fun getOrdersByToken(

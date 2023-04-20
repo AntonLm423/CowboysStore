@@ -13,8 +13,10 @@ class GetProductUseCase @Inject constructor(
         accessToken: String,
         id : String
     ) : Product {
-        return remoteRepository.getProductDetailsById(accessToken, id).getOrElse {
-            throw LoadException()
+        val result = remoteRepository.getProductDetailsById(accessToken, id)
+
+        return result.getOrElse {
+            throw result.exceptionOrNull() ?: LoadException()
         }
     }
 

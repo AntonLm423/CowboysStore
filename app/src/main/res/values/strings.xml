@@ -17,10 +17,11 @@
     <string name="catalog_button_refresh_text">Update</string>
     <string name="catalog_notice_error">There was an error loading data</string>
     <string name="catalog_notice_no_data">As long as it\'s empty</string>
-    <string name="catalog_notice_error_message">Detailed error text spanning multiple lines</string>
+    <string name="catalog_notice_error_message">Please try again</string>
     <string name="catalog_notice_no_data_message">Try to update, suddenly the goods appeared</string>
     <string name="catalog_button_buy_text">Buy</string>
-    <string name="catalog_appbar_title">Catalog</string>
+    <string name="catalog_toolbar_text">Catalog</string>
+
 
     <!--Profile-->
     <string name="profile_app_version_error">Failed to get application version</string>
@@ -28,6 +29,8 @@
     <string name="profile_menu_orders">My orders</string>
     <string name="profile_menu_settings">Settings</string>
     <string name="profile_menu_sign_out">Sign out</string>
+    <string name="profile_data_loading_error">Failed to get profile</string>
+    <string name="profile_data_loading_message">Please try again</string>
 
     <!--Product-->
     <string name="product_hit_of_the_season">Hit of the season</string>
@@ -44,6 +47,8 @@
     <string name="orders_order_status_in_work">In work</string>
     <string name="orders_order_status_canceled">Canceled</string>
     <string name="orders_toolbar_text">My orders</string>
-    <string name="catalog_toolbar_text">Catalog</string>
+    <string name="sign_in_auth_user_not_registered">User not registered</string>
+    <string name="orders_no_data">As long as it\'s empty</string>
+    <string name="orders_no_data_message">Order something and orders will appear here</string>
 
 </resources>

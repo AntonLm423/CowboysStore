@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowboysstore.R
+import com.example.cowboysstore.data.model.Product
 import com.example.cowboysstore.databinding.FragmentCatalogBinding
 import com.example.cowboysstore.presentation.adapters.ProductAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
@@ -25,13 +26,11 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class CatalogFragment : Fragment(), ProductAdapter.Listener {
 
-    private val viewModel: CatalogViewModel by viewModels()
-
     private lateinit var binding: FragmentCatalogBinding
+    private val viewModel: CatalogViewModel by viewModels()
 
     private val productsAdapter by lazy { ProductAdapter(this) }
     private val dividerDecorator by lazy { DividerDecorator(requireContext()) }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +38,8 @@ class CatalogFragment : Fragment(), ProductAdapter.Listener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCatalogBinding.inflate(inflater, container, false)
+
+        /* Fetching list of products */
         viewModel.loadData(getAccessToken(requireContext()))
         return binding.root
     }
@@ -47,54 +48,21 @@ class CatalogFragment : Fragment(), ProductAdapter.Listener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonProfile.setOnClickListener {
-            parentFragmentManager.commit {
-                replace(R.id.containerMain, ProfileFragment())
-                addToBackStack(null)
-            }
+            navigateToProfile()
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
                     when (uiState) {
-
                         is CatalogViewModel.CatalogUiState.Loading -> {
-                            binding.progressContainer.state = ProgressContainer.State.Loading
+                            binding.progressContainerCatalog.state = ProgressContainer.State.Loading
                         }
-
                         is CatalogViewModel.CatalogUiState.Success -> {
-                            if (uiState.productsList.isEmpty()) {
-                                binding.progressContainer.state = ProgressContainer.State.Notice(
-                                    R.string.catalog_notice_no_data,
-                                    R.string.catalog_notice_no_data_message
-                                ) {/* button refresh listener */
-                                    binding.progressContainer.state = ProgressContainer.State.Loading
-                                    viewModel.loadData(getAccessToken(requireContext()))
-                                }
-                            } else {
-                                binding.progressContainer.state = ProgressContainer.State.Success
-                                binding.recyclerViewProducts.apply {
-                                    layoutManager = LinearLayoutManager(
-                                        requireContext(),
-                                        LinearLayoutManager.VERTICAL,
-                                        false
-                                    )
-                                    adapter = productsAdapter
-                                    addItemDecoration(dividerDecorator)
-                                }
-                                productsAdapter.submitList(uiState.productsList)
-                            }
+                            initializeRecyclerView(uiState.productsList)
                         }
-
                         is CatalogViewModel.CatalogUiState.Error -> {
-                            binding.progressContainer.state = ProgressContainer.State.Notice(
-                                uiState.errorResId,
-                                uiState.messageResId
-                            ) {/* button refresh listener */
-                                binding.progressContainer.state = ProgressContainer.State.Loading
-
-                                viewModel.loadData(getAccessToken(requireContext()))
-                            }
+                            initializeErrorState(uiState.errorResId, uiState.messageResId)
                         }
                     }
 
@@ -103,15 +71,62 @@ class CatalogFragment : Fragment(), ProductAdapter.Listener {
         }
     }
 
+    private fun navigateToProfile() {
+        parentFragmentManager.commit {
+            replace(R.id.containerMain, ProfileFragment())
+            addToBackStack(null)
+        }
+    }
+
+    /* RecyclerViewProducts item click listener  */
     override fun onClick(productId: String) {
         parentFragmentManager.commit {
+            /* Sending productId to ProductFragment  */
             setFragmentResult(Constants.BUNDLE_KEY, bundleOf(Constants.PRODUCT_ID_KEY to productId))
             replace(R.id.containerMain, ProductFragment())
             addToBackStack(null)
         }
     }
 
+    /* Initializing recyclerViewProducts by products list */
+    private fun initializeRecyclerView(productsList : List<Product>) {
+        if (productsList.isEmpty()) {
+            binding.progressContainerCatalog.state = ProgressContainer.State.Notice(
+                R.string.catalog_notice_no_data,
+                R.string.catalog_notice_no_data_message
+            ) {
+                /* Listener for buttonRefresh */
+                binding.progressContainerCatalog.state = ProgressContainer.State.Loading
+                viewModel.loadData(getAccessToken(requireContext()))
+            }
+        } else {
+            binding.progressContainerCatalog.state = ProgressContainer.State.Success
+            binding.recyclerViewProducts.apply {
+                layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+                adapter = productsAdapter
+                addItemDecoration(dividerDecorator)
+            }
+            productsAdapter.submitList(productsList)
+        }
+    }
 
+    /* Initializing progressContainer error state by error */
+    private fun initializeErrorState(
+        errorResId : Int,
+        messageResId : Int
+    ) {
+        binding.progressContainerCatalog.state = ProgressContainer.State.Notice(
+            errorResId,
+            messageResId
+        ) {/* Listener for buttonRefresh */
+            binding.progressContainerCatalog.state = ProgressContainer.State.Loading
+            viewModel.loadData(getAccessToken(requireContext()))
+        }
+    }
 
 }
 

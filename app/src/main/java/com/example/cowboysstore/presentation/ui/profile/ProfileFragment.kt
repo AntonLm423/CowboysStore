@@ -1,13 +1,10 @@
 package com.example.cowboysstore.presentation.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -18,14 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.cowboysstore.R
+import com.example.cowboysstore.data.model.Profile
 import com.example.cowboysstore.databinding.FragmentProfileBinding
 import com.example.cowboysstore.presentation.adapters.MenuAdapter
 import com.example.cowboysstore.presentation.adapters.MenuItem
+import com.example.cowboysstore.presentation.customviews.ProgressContainer
+import com.example.cowboysstore.presentation.decorators.RoundedItemDecorator
+import com.example.cowboysstore.presentation.decorators.SpacingItemDecorator
 import com.example.cowboysstore.presentation.ui.orders.OrdersFragment
+import com.example.cowboysstore.presentation.ui.signin.SignInFragment
+import com.example.cowboysstore.utils.Constants
 import com.example.cowboysstore.utils.getAccessToken
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -35,12 +37,15 @@ class ProfileFragment : Fragment() {
 
     private val menuAdapter by lazy { MenuAdapter() }
 
+    private val spacingItemDecorator by lazy { SpacingItemDecorator(false, resources.getDimensionPixelOffset(R.dimen.normal_100)) }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+        /* Fetching profile details */
         viewModel.loadData(getAccessToken(requireContext()))
         return binding.root
     }
@@ -48,35 +53,31 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarProfile.setNavigationOnClickListener {
+        binding.toolBarProfile.setNavigationOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
         initializeMenu()
 
-        viewLifecycleOwner.lifecycleScope.launch {
+       viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect {uiState->
+                viewModel.uiState.collect { uiState->
                     when(uiState) {
                         is ProfileViewModel.ProfileUiState.Loading -> {
-                          changeVisibility(View.VISIBLE, View.GONE)
+                            binding.progressContainerProfile.state = ProgressContainer.State.Loading
                         }
                         is ProfileViewModel.ProfileUiState.Success -> {
-                            changeVisibility(View.GONE, View.VISIBLE, uiState.appVersion)
-
-                            with(binding) {
-                                textViewUserName.text = "${uiState.profile.name} ${uiState.profile.surname}"
-                                textViewUserPosition.text = uiState.profile.occupation
-                                imageViewUserAvatar.load(uiState.profile.avatarId) {
-                                    crossfade(true)
-                                    transformations(RoundedCornersTransformation(16f))
-                                    error(R.drawable.no_data)
-                                    placeholder(R.drawable.no_data)
-                                }
-                            }
+                            binding.progressContainerProfile.state = ProgressContainer.State.Success
+                            initializeProfile(uiState.profile)
+                            binding.textViewAppVersion.append(" ${uiState.appVersion}")
                         }
                         is ProfileViewModel.ProfileUiState.Error -> {
-                            changeVisibility(View.GONE, View.VISIBLE, getString(uiState.errorResID))
+                            binding.progressContainerProfile.state = ProgressContainer.State.Notice(
+                               uiState.errorResID,
+                                uiState.messageResId
+                            ) {
+                                viewModel.loadData(getAccessToken(requireContext()))
+                            }
                         }
                     }
                 }
@@ -85,7 +86,11 @@ class ProfileFragment : Fragment() {
 
     }
 
-
+    /* Initializing RecyclerViewMenu with 3 items:
+    * Orders;
+    * Settings;
+    * Sign out.
+    */
     private fun initializeMenu() {
 
         binding.recyclerViewMenu.apply {
@@ -95,6 +100,8 @@ class ProfileFragment : Fragment() {
                 false
             )
             adapter = menuAdapter
+            addItemDecoration(spacingItemDecorator)
+            addItemDecoration(RoundedItemDecorator(16f))
         }
         menuAdapter.submitList(
             listOf(
@@ -110,33 +117,27 @@ class ProfileFragment : Fragment() {
                     navigateToOrders()
                 }
                 1 -> {
-                    Toast.makeText(
-                        context,
-                        "222",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    // TODO: Profile settings Fragment
                 }
-                2 -> { // TODO: logout dialog
-                    Toast.makeText(
-                        context,
-                        "333",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                2 -> {
+                    // TODO: Logout dialog
+                    val prefs = requireContext().getSharedPreferences(Constants.PREFS_KEY, Context.MODE_PRIVATE)
+                    prefs.edit().clear().apply()
+                    navigateToSignIn()
                 }
             }
         }
     }
 
-    private fun changeVisibility(
-        pbVisibility : Int,
-        tvVisibility : Int,
-        tvText : String? = null
-    ) {
+    private fun initializeProfile(profile : Profile) {
         with(binding) {
-            progressBasAppVersion.visibility = pbVisibility
-            textViewAppVersion.visibility = tvVisibility
-            tvText?.let {
-               textViewAppVersion.append(" $tvText")
+            textViewUserName.text = "${profile.name} ${profile.surname}"
+            textViewUserPosition.text = profile.occupation
+            imageViewUserAvatar.load(profile.avatarId) {
+                crossfade(true)
+                transformations(RoundedCornersTransformation(16f))
+                error(R.drawable.no_data)
+                placeholder(R.drawable.no_data)
             }
         }
     }
@@ -145,6 +146,12 @@ class ProfileFragment : Fragment() {
         parentFragmentManager.commit {
             replace(R.id.containerMain, OrdersFragment())
             addToBackStack(null)
+        }
+    }
+
+    private fun navigateToSignIn() {
+        parentFragmentManager.commit {
+            replace(R.id.containerMain, SignInFragment())
         }
     }
 

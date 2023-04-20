@@ -29,23 +29,23 @@
                 <com.google.android.material.appbar.AppBarLayout
                     android:id="@+id/appBarLayoutProduct"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/appbar_height"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
                     app:layout_constraintBottom_toTopOf="@id/viewPagerProductPreview"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed">
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:fitsSystemWindows="true">
 
                     <com.google.android.material.appbar.MaterialToolbar
                         android:id="@+id/toolbarProduct"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="?attr/actionBarSize"
                         app:navigationIcon="@drawable/ic_arrow_back"
                         app:buttonGravity="center_vertical" />
 
                 </com.google.android.material.appbar.AppBarLayout>
-
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPagerProductPreview"
@@ -157,7 +157,6 @@
                         android:paddingTop="22dp"
                         android:paddingStart="@dimen/normal_100"
                         />
-
 
                 </com.google.android.material.textfield.TextInputLayout>
 

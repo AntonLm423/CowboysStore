@@ -10,8 +10,11 @@ class GetProfileUseCase @Inject constructor(
 ) {
 
     suspend fun getProfileByToken(accessToken : String) : Profile {
-       return remoteRepository.getProfileByToken(accessToken).getOrElse {
-            throw LoadException()
+
+       val result = remoteRepository.getProfileByToken(accessToken)
+
+       return result.getOrElse {
+            throw result.exceptionOrNull() ?: LoadException()
         }
     }
 

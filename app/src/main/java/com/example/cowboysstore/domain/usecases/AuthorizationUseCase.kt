@@ -1,7 +1,7 @@
 package com.example.cowboysstore.domain.usecases
 
 import com.example.cowboysstore.data.repository.RemoteRepository
-import com.example.cowboysstore.utils.AuthException
+import com.example.cowboysstore.utils.LoadException
 import javax.inject.Inject
 
 class AuthorizationUseCase @Inject constructor(
@@ -12,11 +12,10 @@ class AuthorizationUseCase @Inject constructor(
         email: String,
         password: String
     ): String {
-
         val result = remoteRepository.authorization(email,password)
 
         return result.getOrElse {
-            throw AuthException(result.exceptionOrNull()?.message ?: "Invalid Error")
+            throw result.exceptionOrNull() ?: LoadException()
         }
 
     }

@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowboysstore.R
+import com.example.cowboysstore.data.model.Order
 import com.example.cowboysstore.databinding.FragmentOrdersListBinding
 import com.example.cowboysstore.presentation.adapters.OrderAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
@@ -50,21 +51,12 @@ class AllOrdersFragment() : Fragment() {
                         }
                         is OrdersViewModel.OrderUiState.Success -> {
                             binding.progressContainerOrdersList.state = ProgressContainer.State.Success
-                            binding.recyclerViewOrdersList.apply {
-                                adapter = orderAdapter
-                                layoutManager = LinearLayoutManager(
-                                    requireContext(),
-                                    LinearLayoutManager.VERTICAL,
-                                    false
-                                )
-                                addItemDecoration(dividerDecorator)
-                            }
-                            orderAdapter.submitList(uiState.ordersList)
+                            initializeRecyclerViewOrders(uiState.ordersList)
                         }
                         is OrdersViewModel.OrderUiState.Error -> {
                             binding.progressContainerOrdersList.state = ProgressContainer.State.Notice(
-                                R.string.unknown_error,
-                                 R.string.unknown_error_message
+                                uiState.errorResId,
+                                uiState.messageResId
                             ) {
                                 viewModel.loadData(getAccessToken(requireContext()))
                             }
@@ -74,4 +66,18 @@ class AllOrdersFragment() : Fragment() {
             }
         }
     }
+
+    private fun initializeRecyclerViewOrders(ordersList : List<Order>) {
+        binding.recyclerViewOrdersList.apply {
+            adapter = orderAdapter
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            addItemDecoration(dividerDecorator)
+        }
+        orderAdapter.submitList(ordersList)
+    }
+
 }

@@ -25,7 +25,6 @@ class ProfileViewModel @Inject constructor(
     private val _uiState : MutableStateFlow<ProfileUiState> = MutableStateFlow(ProfileUiState.Loading)
     val uiState : StateFlow<ProfileUiState> = _uiState
 
-
     fun loadData(accessToken : String) {
         _uiState.update {
             ProfileUiState.Loading
@@ -33,9 +32,8 @@ class ProfileViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val appVersion = withContext(Dispatchers.IO) {
-                    getAppVersionUseCase.getAppVersion()
-                }
+                val appVersion = getAppVersionUseCase.getAppVersion()
+
                 val profile = withContext(Dispatchers.IO) {
                     getProfileUseCase.getProfileByToken(accessToken)
                 }
@@ -46,7 +44,10 @@ class ProfileViewModel @Inject constructor(
             }
             catch (e : LoadException) {
                 _uiState.update {
-                    ProfileUiState.Error(e.errorResId ?: R.string.unknown_error)
+                    ProfileUiState.Error(
+                        e.errorResId ?: R.string.unknown_error,
+                        e.messageResId ?: R.string.unknown_error_message
+                    )
                 }
             }
         }
@@ -59,7 +60,10 @@ class ProfileViewModel @Inject constructor(
             val profile : Profile,
             val appVersion : String
             ) : ProfileUiState()
-        class Error(val errorResID : Int) : ProfileUiState()
+        class Error(
+            val errorResID : Int,
+            val messageResId : Int
+        ) : ProfileUiState()
     }
 
 }

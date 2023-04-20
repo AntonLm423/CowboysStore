@@ -2,9 +2,11 @@ package com.example.cowboysstore.presentation.ui.orders
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Order
 import com.example.cowboysstore.domain.usecases.GetOrdersUseCase
 import com.example.cowboysstore.domain.usecases.GetProductUseCase
+import com.example.cowboysstore.utils.LoadException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,7 +42,7 @@ class OrdersViewModel @Inject constructor(
                     getOrdersUseCase.getOrdersByToken(accessToken)
                 }
 
-                // из-за особенности бека заменяю Product.Id именем для того, чтобы не создавать новый класс и список
+                // из-за особенности бека заменяю Product.Id именем продукта, чтобы не создавать новый класс и список
                 val deferredTasks = ordersList.map {
                     async(Dispatchers.IO) {
                         val productTitle = getProductUseCase.getProductById(accessToken, it.productId).title
@@ -57,23 +59,29 @@ class OrdersViewModel @Inject constructor(
                 _activeOrdersUiState.update {
                     OrderUiState.Success(ordersList.filter { it.status == "in_work" })
                 }
-            } catch (e: Exception) {
+            } catch (e: LoadException) {
                 _allOrdersUiSate.update {
-                    OrderUiState.Error(e.message ?: "Unknown error")
+                    OrderUiState.Error(
+                        e.errorResId ?: R.string.unknown_error,
+                        e.messageResId ?: R.string.unknown_error_message
+                    )
                 }
-
                 _activeOrdersUiState.update {
-                    OrderUiState.Error(e.message ?: "Unknown error")
+                    OrderUiState.Error(
+                        e.errorResId ?: R.string.unknown_error,
+                        e.messageResId ?: R.string.unknown_error_message
+                    )
                 }
             }
         }
-
-
     }
 
     sealed class OrderUiState {
         object Loading : OrderUiState()
         class Success(val ordersList : List<Order>) : OrderUiState()
-        class Error(val message : String) : OrderUiState()
+        class Error(
+            val errorResId: Int,
+            val messageResId : Int
+        ) : OrderUiState()
     }
 }

@@ -13,7 +13,6 @@
         android:visibility="gone"
         android:background="@color/background_color">
 
-
         <ProgressBar
             android:id="@+id/progressBar"
             style="@android:style/Widget.Material.ProgressBar.Large"
