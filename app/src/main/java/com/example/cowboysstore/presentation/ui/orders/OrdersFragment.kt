@@ -10,7 +10,6 @@ import com.example.cowboysstore.R
 import com.example.cowboysstore.databinding.FragmentOrdersBinding
 import com.example.cowboysstore.presentation.adapters.PagerTabAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
-import com.example.cowboysstore.utils.getAccessToken
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +33,7 @@ class OrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOrdersBinding.inflate(inflater,container, false)
-        viewModel.loadData(getAccessToken(requireContext()))
+        viewModel.loadData()
         return binding.root
     }
 

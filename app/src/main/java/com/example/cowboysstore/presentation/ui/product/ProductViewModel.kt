@@ -23,10 +23,7 @@ class ProductViewModel @Inject constructor(
     private val _uiState : MutableStateFlow<ProductUiState> = MutableStateFlow(ProductUiState.Loading)
     val uiState : StateFlow<ProductUiState> = _uiState
 
-    fun loadData(
-        accessToken : String,
-        id : String
-    ) {
+    fun loadData(id : String) {
         _uiState.update {
             ProductUiState.Loading
         }
@@ -34,13 +31,11 @@ class ProductViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val product = withContext(Dispatchers.IO) {
-                    getProductUseCase.getProductById(accessToken, id)
+                    getProductUseCase.getProductById(id)
                 }
-
                 _uiState.update {
                     ProductUiState.Success(product)
                 }
-
             } catch (e: LoadException) {
                 _uiState.update {
                     ProductUiState.Error(

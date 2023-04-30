@@ -1,12 +1,19 @@
 package com.example.cowboysstore.di
 
+import android.content.Context
+import com.example.cowboysstore.data.local.prefs.Preferences
+import com.example.cowboysstore.data.local.prefs.PreferencesImpl
+import com.example.cowboysstore.data.remote.AcceptInterceptor
+import com.example.cowboysstore.data.remote.AuthorizationInterceptor
 import com.example.cowboysstore.data.remote.RemoteApi
 import com.example.cowboysstore.data.repository.RemoteRepository
 import com.example.cowboysstore.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -20,12 +27,26 @@ class DataModule {
     fun provideRemoteRepository(apiClient: RemoteApi): RemoteRepository =
         RemoteRepository(apiClient)
 
+    @Provides
+    @Singleton
+    fun providePreferences(
+        @ApplicationContext context: Context
+    ) : Preferences = PreferencesImpl(context)
 
     @Provides
     @Singleton
-    fun provideRemoteApi(): RemoteApi =
+    fun provideOkHttpClient(preferences: Preferences): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(AcceptInterceptor())
+            .addInterceptor(AuthorizationInterceptor(preferences))
+            .build()
+
+    @Provides
+    @Singleton
+    fun provideRemoteApi(okHttpClient: OkHttpClient): RemoteApi =
         Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RemoteApi::class.java)

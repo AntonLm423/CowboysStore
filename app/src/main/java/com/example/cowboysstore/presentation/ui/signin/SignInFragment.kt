@@ -1,6 +1,5 @@
 package com.example.cowboysstore.presentation.ui.signin
 
-import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -12,14 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.example.cowboysstore.R
+import com.example.cowboysstore.data.local.prefs.Preferences
 import com.example.cowboysstore.databinding.FragmentSignInBinding
 import com.example.cowboysstore.presentation.ui.catalog.CatalogFragment
-import com.example.cowboysstore.utils.Constants
-import com.example.cowboysstore.utils.getAccessToken
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class SignInFragment : Fragment() {
+class SignInFragment()
+: Fragment() {
 
    private val viewModel : SignInViewModel by viewModels()
    private lateinit var binding : FragmentSignInBinding
@@ -32,15 +32,21 @@ class SignInFragment : Fragment() {
       binding = FragmentSignInBinding.inflate(inflater,container, false)
 
 
-    if(checkAuthToken()) {
+
+   /* if(checkAuthToken()) {
           navigateToCatalog()
-      }
+      }*/
 
       return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /************************************************/
+        binding.editTextLogin.setText("qwerty@mail.ru")
+        binding.editTextPassword.setText("12345678")
+        /************************************************/
 
         binding.buttonSignIn.setOnClickListener {
            tryLogIn()
@@ -60,9 +66,6 @@ class SignInFragment : Fragment() {
         }
     }
 
-    /* Returns true if the token exists */
-    private fun checkAuthToken() : Boolean = getAccessToken(requireContext()).isNotEmpty()
-
     /* Log in by email and password */
     private fun tryLogIn() {
         val username = binding.editTextLogin.text.toString()
@@ -81,7 +84,8 @@ class SignInFragment : Fragment() {
                     }
                     is SignInViewModel.AuthorizationState.Success -> {
                         binding.buttonSignIn.isLoading = false
-                        saveAccessTokenInPrefs(state.accessToken)
+                        viewModel.saveAccessToken(state.accessToken)
+                        navigateToCatalog()
                     }
                     is SignInViewModel.AuthorizationState.Error -> {
                         binding.buttonSignIn.isLoading = false
@@ -91,14 +95,6 @@ class SignInFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun saveAccessTokenInPrefs(accessToken : String) {
-        val sharedPref = requireContext().getSharedPreferences(Constants.PREFS_KEY, Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putString(Constants.PREFS_AUTH_KEY, "Bearer $accessToken")
-        editor.apply()
-        navigateToCatalog()
     }
 
     private fun navigateToCatalog() {

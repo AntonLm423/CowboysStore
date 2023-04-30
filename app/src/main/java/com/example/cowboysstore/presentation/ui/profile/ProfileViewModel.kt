@@ -3,6 +3,7 @@ package com.example.cowboysstore.presentation.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cowboysstore.R
+import com.example.cowboysstore.data.local.prefs.Preferences
 import com.example.cowboysstore.domain.usecases.GetAppVersionUseCase
 import com.example.cowboysstore.utils.LoadException
 import com.example.cowboysstore.data.model.Profile
@@ -22,10 +23,13 @@ class ProfileViewModel @Inject constructor(
     private val getAppVersionUseCase: GetAppVersionUseCase
 ) : ViewModel() {
 
+    @Inject
+    lateinit var preferences: Preferences
+
     private val _uiState : MutableStateFlow<ProfileUiState> = MutableStateFlow(ProfileUiState.Loading)
     val uiState : StateFlow<ProfileUiState> = _uiState
 
-    fun loadData(accessToken : String) {
+    fun loadData() {
         _uiState.update {
             ProfileUiState.Loading
         }
@@ -35,7 +39,7 @@ class ProfileViewModel @Inject constructor(
                 val appVersion = getAppVersionUseCase.getAppVersion()
 
                 val profile = withContext(Dispatchers.IO) {
-                    getProfileUseCase.getProfileByToken(accessToken)
+                    getProfileUseCase.getProfile()
                 }
 
                 _uiState.update {
@@ -51,6 +55,10 @@ class ProfileViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun clearAccessToken() {
+        preferences.accessToken = ""
     }
 
     sealed class ProfileUiState {

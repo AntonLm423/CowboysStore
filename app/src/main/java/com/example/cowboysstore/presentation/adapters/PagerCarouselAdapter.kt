@@ -2,6 +2,7 @@ package com.example.cowboysstore.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -39,6 +40,7 @@ class PagerCarouselAdapter : RecyclerView.Adapter<PagerCarouselAdapter.ViewPager
                 error(R.drawable.no_data)
                 placeholder(R.drawable.no_data)
             }
+            imageViewPreview.scaleType = ImageView.ScaleType.CENTER_CROP
         }
     }
 

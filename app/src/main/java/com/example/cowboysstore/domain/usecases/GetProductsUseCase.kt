@@ -9,10 +9,8 @@ class GetProductsUseCase @Inject constructor(
     private val remoteRepository: RemoteRepository
 ) {
 
-
-    suspend fun getProducts(accessToken : String) : List<Product> {
-
-        val result = remoteRepository.getProducts(accessToken)
+    suspend fun getProducts() : List<Product> {
+      val result = remoteRepository.getProducts()
 
        return result.getOrElse {
             return result.getOrElse {
@@ -20,5 +18,4 @@ class GetProductsUseCase @Inject constructor(
             }
         }
     }
-
 }

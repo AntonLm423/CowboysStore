@@ -1,5 +1,6 @@
 package com.example.cowboysstore.data.model
 
+
 data class Product(
     val badge: List<Badge> = emptyList(),
     val department: String = "",

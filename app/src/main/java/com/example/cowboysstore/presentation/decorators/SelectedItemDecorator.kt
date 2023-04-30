@@ -16,11 +16,11 @@ class SelectedItemDecorator(
         val selectedView = parent.findViewHolderForAdapterPosition(selectedPosition)?.itemView
         selectedView?.let {
             selectedDrawable?.let { drawable ->
-                val margin = 2
-                val left = it.left - margin
-                val top = it.top - margin
-                val right = it.right + margin
-                val bottom = it.bottom + margin
+                val borderWidth = 8 // толщина границы
+                val left = it.left - borderWidth
+                val right = it.right + borderWidth
+                val top = it.top - borderWidth / 2
+                val bottom = it.bottom + borderWidth / 2
                 drawable.setBounds(left, top, right, bottom)
                 drawable.draw(canvas)
             }

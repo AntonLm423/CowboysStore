@@ -26,7 +26,7 @@ class OrdersViewModel @Inject constructor(
     private val _activeOrdersUiState : MutableStateFlow<OrderUiState> = MutableStateFlow(OrderUiState.Loading)
     val activeOrderUiState : StateFlow<OrderUiState> = _activeOrdersUiState
 
-    fun loadData(accessToken : String) {
+    fun loadData() {
 
         _allOrdersUiSate.update {
             OrderUiState.Loading
@@ -39,13 +39,13 @@ class OrdersViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val ordersList = withContext(Dispatchers.IO) {
-                    getOrdersUseCase.getOrdersByToken(accessToken)
+                    getOrdersUseCase.getOrders()
                 }
 
                 // из-за особенности бека заменяю Product.Id именем продукта, чтобы не создавать новый класс и список
                 val deferredTasks = ordersList.map {
                     async(Dispatchers.IO) {
-                        val productTitle = getProductUseCase.getProductById(accessToken, it.productId).title
+                        val productTitle = getProductUseCase.getProductById(it.productId).title
                         it.productId = productTitle
                     }
                 }

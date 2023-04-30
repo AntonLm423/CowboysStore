@@ -13,10 +13,10 @@ class RemoteRepository @Inject constructor(
     private val remoteApiClient : RemoteApi
 ) {
 
-    suspend fun getProducts(accessToken: String): Result<List<Product>> {
+    suspend fun getProducts(): Result<List<Product>> {
 
         try {
-            val response = remoteApiClient.getProducts(accessToken)
+            val response = remoteApiClient.getProducts()
 
             return if (response.isSuccessful) {
                 Result.success(response.body()?.productsList ?: emptyList())
@@ -32,10 +32,10 @@ class RemoteRepository @Inject constructor(
 
     }
 
-    suspend fun getProfileByToken(accessToken: String): Result<Profile> {
+    suspend fun getProfile(): Result<Profile> {
 
         try {
-            val response = remoteApiClient.getProfileByToken(accessToken)
+            val response = remoteApiClient.getProfile()
 
             return if (response.isSuccessful) {
                 Result.success(response.body()?.responseData?.profile ?: Profile())
@@ -82,13 +82,10 @@ class RemoteRepository @Inject constructor(
         }
     }
 
-    suspend fun getProductDetailsById(
-        accessToken: String,
-        id: String
-    ): Result<Product> {
+    suspend fun getProductDetailsById(id: String): Result<Product> {
 
         try {
-            val response = remoteApiClient.getProductById(accessToken, id)
+            val response = remoteApiClient.getProductById(id)
 
             return if (response.isSuccessful) {
                 val product = response.body()?.product ?: Product()
@@ -116,11 +113,9 @@ class RemoteRepository @Inject constructor(
         }
     }
 
-    suspend fun getOrdersByToken(
-        accessToken: String
-    ): Result<List<Order>> {
+    suspend fun getOrders(): Result<List<Order>> {
         try {
-            val response = remoteApiClient.getOrdersByToken(accessToken)
+            val response = remoteApiClient.getOrders()
 
             return if (response.isSuccessful) {
                 val orders = response.body()?.orders ?: emptyList()

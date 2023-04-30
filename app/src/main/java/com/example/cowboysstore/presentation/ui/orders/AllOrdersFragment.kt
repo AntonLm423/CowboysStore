@@ -10,13 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Order
 import com.example.cowboysstore.databinding.FragmentOrdersListBinding
 import com.example.cowboysstore.presentation.adapters.OrderAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
 import com.example.cowboysstore.presentation.decorators.DividerDecorator
-import com.example.cowboysstore.utils.getAccessToken
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -58,7 +56,7 @@ class AllOrdersFragment() : Fragment() {
                                 uiState.errorResId,
                                 uiState.messageResId
                             ) {
-                                viewModel.loadData(getAccessToken(requireContext()))
+                                viewModel.loadData()
                             }
                         }
                     }

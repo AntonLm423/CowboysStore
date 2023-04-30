@@ -69,13 +69,11 @@ class ProgressContainer @JvmOverloads constructor(
                 } else {
                     button.isVisible = false
                 }
-                Log.d("TAG_TEST", "State: Notice")
             }
             is State.Success -> {
                 layoutLoading.isVisible = false
                 layoutNotice.isVisible = false
                 findContextView()?.isVisible = true
-                Log.d("TAG_TEST", "State: Success")
             }
         }
 

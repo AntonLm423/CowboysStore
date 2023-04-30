@@ -20,5 +20,4 @@
         android:indeterminateTintMode="src_in"
         android:visibility="gone"/>
 
-
 </FrameLayout>

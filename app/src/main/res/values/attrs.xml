@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="ProgressButton">
         <attr name="text" format="string"/>
+        <attr name="textAllCaps" format="boolean"/>
     </declare-styleable>
 </resources>

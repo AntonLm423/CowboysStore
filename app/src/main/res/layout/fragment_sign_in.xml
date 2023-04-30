@@ -7,13 +7,19 @@
 
     </data>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_sign_in"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layout_marginStart="@dimen/normal_100"
-        android:layout_marginEnd="@dimen/normal_100">
+        android:layout_marginEnd="@dimen/normal_100"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -27,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintVertical_bias="0.33"/>
-
+        
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutLogin"
             android:layout_width="match_parent"
@@ -36,7 +42,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-            app:layout_constraintBottom_toTopOf="@id/textInputLayoutPassword">
+            app:layout_constraintBottom_toTopOf="@id/textInputLayoutPassword"
+            app:boxCornerRadiusTopStart="@dimen/normal_50"
+            app:boxCornerRadiusTopEnd="@dimen/normal_50">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextLogin"
@@ -44,8 +52,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_in_login_hint"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutPassword"
@@ -56,7 +65,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/buttonSignIn"
-            app:endIconMode="password_toggle">
+            app:endIconDrawable="@drawable/selector_password_toggle"
+            app:endIconMode="password_toggle"
+            app:endIconCheckable="true"
+            app:endIconTint="@color/black"
+            app:boxCornerRadiusTopStart="@dimen/normal_50"
+            app:boxCornerRadiusTopEnd="@dimen/normal_50">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPassword"
@@ -64,8 +78,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_in_password"
                 android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:paddingEnd="40dp"/>
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.example.cowboysstore.presentation.customviews.ProgressButton
@@ -73,11 +86,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_300"
+            app:textAllCaps="true"
             app:text="@string/sign_in_login"
             app:layout_constraintTop_toBottomOf="@id/textInputLayoutPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>

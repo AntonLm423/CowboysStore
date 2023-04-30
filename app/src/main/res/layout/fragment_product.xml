@@ -49,7 +49,7 @@
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPagerProductPreview"
-                    android:layout_width="284dp"
+                    android:layout_width="match_parent"
                     android:layout_height="284dp"
                     android:layout_marginBottom="@dimen/normal_100"
                     app:layout_constraintBottom_toTopOf="@id/recyclerViewProductPreview"
@@ -65,13 +65,14 @@
                     android:layout_marginStart="@dimen/normal_200"
                     android:layout_marginEnd="@dimen/normal_200"
                     android:layout_marginBottom="@dimen/normal_100"
+                    android:padding="@dimen/normal_25"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/viewPagerProductPreview"
                     app:layout_constraintBottom_toTopOf="@id/textViewPrice"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_recycler_carousel"
+                    tools:listitem="@layout/item_product_preview"
                     tools:orientation="horizontal" />
 
                 <TextView

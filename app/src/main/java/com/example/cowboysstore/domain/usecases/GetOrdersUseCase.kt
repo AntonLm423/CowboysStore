@@ -9,8 +9,8 @@ class GetOrdersUseCase @Inject constructor(
     private val remoteRepository: RemoteRepository
 ){
 
-    suspend fun getOrdersByToken(accessToken : String) : List<Order> {
-        val result = remoteRepository.getOrdersByToken(accessToken)
+    suspend fun getOrders() : List<Order> {
+        val result = remoteRepository.getOrders()
        return result.getOrElse {
             throw result.exceptionOrNull() ?: LoadException()
         }

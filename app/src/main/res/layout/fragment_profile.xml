@@ -38,7 +38,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/background_color">
 
                 <LinearLayout
                     android:id="@+id/linearLayoutProfileInfo"
@@ -89,13 +90,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
                     android:layout_marginTop="@dimen/normal_150"
+                    android:paddingStart="@dimen/normal_100"
+                    android:paddingEnd="@dimen/normal_100"
                     app:layout_constraintTop_toBottomOf="@id/linearLayoutProfileInfo"
                     app:layout_constraintBottom_toTopOf="@id/textViewAppVersion"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintVertical_bias="0.0"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_menu"
                     tools:orientation="horizontal" />

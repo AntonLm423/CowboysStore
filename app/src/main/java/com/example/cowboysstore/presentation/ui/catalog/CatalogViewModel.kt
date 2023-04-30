@@ -23,7 +23,7 @@ class CatalogViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<CatalogUiState> = MutableStateFlow(CatalogUiState.Loading)
     val uiState: StateFlow<CatalogUiState> = _uiState
 
-    fun loadData(accessToken : String) {
+    fun loadData() {
         _uiState.update {
             CatalogUiState.Loading
         }
@@ -31,7 +31,7 @@ class CatalogViewModel @Inject constructor(
         viewModelScope.launch() {
             try {
             val productList = withContext(Dispatchers.IO) {
-                getProductsUseCase.getProducts(accessToken)
+                getProductsUseCase.getProducts()
             }
                 if(productList.isEmpty()) {
                     _uiState.update {

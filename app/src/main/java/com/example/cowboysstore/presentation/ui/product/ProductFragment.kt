@@ -6,7 +6,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -19,14 +18,13 @@ import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Product
 import com.example.cowboysstore.databinding.FragmentProductBinding
 import com.example.cowboysstore.presentation.adapters.PagerCarouselAdapter
+import com.example.cowboysstore.presentation.adapters.ProductPreviewAdapter
 import com.example.cowboysstore.presentation.adapters.ProductStructureAdapter
-import com.example.cowboysstore.presentation.adapters.RecyclerCarouselAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
 import com.example.cowboysstore.presentation.decorators.SelectedItemDecorator
 import com.example.cowboysstore.presentation.decorators.SpacingItemDecorator
 import com.example.cowboysstore.presentation.dialogs.SizeSelectionDialog
 import com.example.cowboysstore.utils.Constants
-import com.example.cowboysstore.utils.getAccessToken
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,7 +36,7 @@ class ProductFragment : Fragment() {
 
     private val productStructureAdapter by lazy { ProductStructureAdapter() }
     private val pagerCarouselAdapter by lazy { PagerCarouselAdapter()  }
-    private val recyclerCarouselAdapter by lazy { RecyclerCarouselAdapter() }
+    private val productPreviewAdapter by lazy { ProductPreviewAdapter() }
 
     private val selectedItemDecorator by lazy { SelectedItemDecorator(requireContext()) }
     private val spacingItemDecorator by lazy { SpacingItemDecorator(false, resources.getDimensionPixelOffset(R.dimen.normal_50)) }
@@ -57,7 +55,7 @@ class ProductFragment : Fragment() {
         /* Collecting productId from CatalogFragment */
         setFragmentResultListener(Constants.BUNDLE_KEY) { _, bundle ->
             productId = bundle.getString(Constants.PRODUCT_ID_KEY)!!
-            viewModel.loadData(getAccessToken(requireContext()), productId)
+            viewModel.loadData(productId)
         }
 
         return binding.root
@@ -186,11 +184,11 @@ class ProductFragment : Fragment() {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = recyclerCarouselAdapter
+            adapter = productPreviewAdapter
             addItemDecoration(spacingItemDecorator)
         }
 
-        recyclerCarouselAdapter.submitList(images)
+        productPreviewAdapter.submitList(images)
     }
     }
 }

@@ -1,11 +1,11 @@
 package com.example.cowboysstore.presentation.ui.profile
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -20,12 +20,9 @@ import com.example.cowboysstore.databinding.FragmentProfileBinding
 import com.example.cowboysstore.presentation.adapters.MenuAdapter
 import com.example.cowboysstore.presentation.adapters.MenuItem
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
-import com.example.cowboysstore.presentation.decorators.RoundedItemDecorator
 import com.example.cowboysstore.presentation.decorators.SpacingItemDecorator
 import com.example.cowboysstore.presentation.ui.orders.OrdersFragment
 import com.example.cowboysstore.presentation.ui.signin.SignInFragment
-import com.example.cowboysstore.utils.Constants
-import com.example.cowboysstore.utils.getAccessToken
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -46,7 +43,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         /* Fetching profile details */
-        viewModel.loadData(getAccessToken(requireContext()))
+        viewModel.loadData()
         return binding.root
     }
 
@@ -59,7 +56,7 @@ class ProfileFragment : Fragment() {
 
         initializeMenu()
 
-       viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState->
                     when(uiState) {
@@ -76,14 +73,13 @@ class ProfileFragment : Fragment() {
                                uiState.errorResID,
                                 uiState.messageResId
                             ) {
-                                viewModel.loadData(getAccessToken(requireContext()))
+                                viewModel.loadData()
                             }
                         }
                     }
                 }
             }
         }
-
     }
 
     /* Initializing RecyclerViewMenu with 3 items:
@@ -101,7 +97,6 @@ class ProfileFragment : Fragment() {
             )
             adapter = menuAdapter
             addItemDecoration(spacingItemDecorator)
-            addItemDecoration(RoundedItemDecorator(16f))
         }
         menuAdapter.submitList(
             listOf(
@@ -121,8 +116,7 @@ class ProfileFragment : Fragment() {
                 }
                 2 -> {
                     // TODO: Logout dialog
-                    val prefs = requireContext().getSharedPreferences(Constants.PREFS_KEY, Context.MODE_PRIVATE)
-                    prefs.edit().clear().apply()
+                    viewModel.clearAccessToken()
                     navigateToSignIn()
                 }
             }
@@ -150,6 +144,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun navigateToSignIn() {
+        parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
         parentFragmentManager.commit {
             replace(R.id.containerMain, SignInFragment())
         }

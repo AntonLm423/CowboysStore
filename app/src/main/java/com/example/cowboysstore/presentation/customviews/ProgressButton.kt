@@ -20,6 +20,7 @@ class ProgressButton @JvmOverloads constructor(
     private val progressBar : ProgressBar
 
     private var buttonText : String? = null
+    private var isAllCaps : Boolean = false
 
     init {
         val root = LayoutInflater.from(context).inflate(R.layout.view_progress_button, this, true)
@@ -28,8 +29,8 @@ class ProgressButton @JvmOverloads constructor(
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.ProgressButton)
         button.text = ta.getString(R.styleable.ProgressButton_text)
+        button.isAllCaps = ta.getBoolean(R.styleable.ProgressButton_textAllCaps, false)
         ta.recycle()
-
     }
 
     var isLoading : Boolean by Delegates.observable(false) {_, _, isLoading ->

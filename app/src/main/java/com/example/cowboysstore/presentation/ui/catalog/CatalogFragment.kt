@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Product
@@ -19,7 +21,6 @@ import com.example.cowboysstore.presentation.decorators.DividerDecorator
 import com.example.cowboysstore.presentation.ui.product.ProductFragment
 import com.example.cowboysstore.presentation.ui.profile.ProfileFragment
 import com.example.cowboysstore.utils.Constants
-import com.example.cowboysstore.utils.getAccessToken
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -40,7 +41,7 @@ class CatalogFragment : Fragment(), ProductAdapter.Listener {
         binding = FragmentCatalogBinding.inflate(inflater, container, false)
 
         /* Fetching list of products */
-        viewModel.loadData(getAccessToken(requireContext()))
+        viewModel.loadData()
         return binding.root
     }
 
@@ -97,7 +98,7 @@ class CatalogFragment : Fragment(), ProductAdapter.Listener {
             ) {
                 /* Listener for buttonRefresh */
                 binding.progressContainerCatalog.state = ProgressContainer.State.Loading
-                viewModel.loadData(getAccessToken(requireContext()))
+                viewModel.loadData()
             }
         } else {
             binding.progressContainerCatalog.state = ProgressContainer.State.Success
@@ -124,7 +125,7 @@ class CatalogFragment : Fragment(), ProductAdapter.Listener {
             messageResId
         ) {/* Listener for buttonRefresh */
             binding.progressContainerCatalog.state = ProgressContainer.State.Loading
-            viewModel.loadData(getAccessToken(requireContext()))
+            viewModel.loadData()
         }
     }
 

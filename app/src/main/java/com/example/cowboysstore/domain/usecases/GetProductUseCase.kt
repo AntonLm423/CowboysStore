@@ -10,10 +10,9 @@ class GetProductUseCase @Inject constructor(
 ) {
 
     suspend fun getProductById(
-        accessToken: String,
         id : String
     ) : Product {
-        val result = remoteRepository.getProductDetailsById(accessToken, id)
+        val result = remoteRepository.getProductDetailsById( id)
 
         return result.getOrElse {
             throw result.exceptionOrNull() ?: LoadException()
