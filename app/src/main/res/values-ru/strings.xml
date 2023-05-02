@@ -12,7 +12,7 @@
     <string name="sign_in_login">Войти</string>
     <string name="sign_in_auth_invalid">Неверный логин или пароль</string>
     <string name="sign_in_auth_error">Не удалось проверить данные, попробуйте повторить попытку</string>
-    <string name="sign_in_validation_error">Неверный логин или пароль</string>
+    <string name="sign_in_validation_error">Поле заполнено неверно</string>
 
 
     <!--Каталог-->

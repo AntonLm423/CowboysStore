@@ -25,7 +25,6 @@
                 android:background="@color/smalt"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:navigationIconTint="@color/white"/>
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.example.cowboysstore.presentation.customviews.ProgressContainer
@@ -82,7 +81,6 @@
                         android:layout_marginBottom="@dimen/normal_100"
                         android:text="Разработчик"
                         android:textColor="@color/white" />
-
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -115,10 +113,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.example.cowboysstore.presentation.customviews.ProgressContainer>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

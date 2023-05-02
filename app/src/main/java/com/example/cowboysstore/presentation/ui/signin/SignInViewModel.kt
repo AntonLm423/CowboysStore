@@ -25,20 +25,7 @@ class SignInViewModel @Inject constructor(
     private val _authorizationState = MutableLiveData<AuthorizationState>()
     val authorizationState: LiveData<AuthorizationState> = _authorizationState
 
-    fun validate(email : String, password: String) : Boolean {
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            return false
-        }
-
-        if (password.length < 8) {
-            return false
-        }
-
-        return true
-    }
-
     fun authorize(email: String, password: String) {
-
         _authorizationState.value = AuthorizationState.Loading
 
         viewModelScope.launch {

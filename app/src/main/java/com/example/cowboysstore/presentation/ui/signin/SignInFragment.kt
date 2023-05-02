@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -14,6 +15,8 @@ import com.example.cowboysstore.R
 import com.example.cowboysstore.data.local.prefs.Preferences
 import com.example.cowboysstore.databinding.FragmentSignInBinding
 import com.example.cowboysstore.presentation.ui.catalog.CatalogFragment
+import com.example.cowboysstore.utils.Validator
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -67,34 +70,51 @@ class SignInFragment()
     }
 
     /* Log in by email and password */
-    private fun tryLogIn() {
-        val username = binding.editTextLogin.text.toString()
-        val password = binding.editTextPassword.text.toString()
+    private fun tryLogIn() = with(binding) {
+        textInputLayoutLogin.error = null
+        textInputLayoutPassword.error = null
 
-        if (!viewModel.validate(username, password)) {
-            binding.editTextLogin.error = getString(R.string.sign_in_validation_error)
-            binding.editTextPassword.error = getString(R.string.sign_in_validation_error)
-        } else {
-            viewModel.authorize(username, password)
+        val email = editTextLogin.text.toString()
+        val password = editTextPassword.text.toString()
 
-            viewModel.authorizationState.observe(viewLifecycleOwner) { state ->
-                when (state) {
-                    is SignInViewModel.AuthorizationState.Loading -> {
-                        binding.buttonSignIn.isLoading = true
-                    }
-                    is SignInViewModel.AuthorizationState.Success -> {
-                        binding.buttonSignIn.isLoading = false
-                        viewModel.saveAccessToken(state.accessToken)
-                        navigateToCatalog()
-                    }
-                    is SignInViewModel.AuthorizationState.Error -> {
-                        binding.buttonSignIn.isLoading = false
-                        // TODO: Bottom Sheet Dialog
-                        Toast.makeText(requireContext(), getString(state.errorResId), Toast.LENGTH_SHORT).show()
+        when {
+            !Validator.isEmailValid(email) && !Validator.isPasswordValid(password) -> {
+                textInputLayoutLogin.error = getString(R.string.sign_in_validation_error)
+                textInputLayoutPassword.error = getString(R.string.sign_in_validation_error)
+            }
+            !Validator.isEmailValid(email) -> {
+                textInputLayoutLogin.error = getString(R.string.sign_in_validation_error)
+            }
+            !Validator.isPasswordValid(password) -> {
+                textInputLayoutPassword.error = getString(R.string.sign_in_validation_error)
+            }
+            else -> {
+                viewModel.authorize(email, password)
+                viewModel.authorizationState.observe(viewLifecycleOwner) { state ->
+                    when (state) {
+                        is SignInViewModel.AuthorizationState.Loading -> {
+                            buttonSignIn.isLoading = true
+                        }
+                        is SignInViewModel.AuthorizationState.Success -> {
+                            buttonSignIn.isLoading = false
+                            viewModel.saveAccessToken(state.accessToken)
+                            navigateToCatalog()
+                        }
+                        is SignInViewModel.AuthorizationState.Error -> {
+                            buttonSignIn.isLoading = false
+                            showErrorSnackbar(state.errorResId)
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun showErrorSnackbar(errorResId: Int) {
+        val snackBar = Snackbar.make(binding.frameLayoutSignIn, errorResId, Snackbar.LENGTH_LONG)
+        snackBar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red_input_failure))
+        snackBar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        snackBar.show()
     }
 
     private fun navigateToCatalog() {

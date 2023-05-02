@@ -11,7 +11,7 @@
     <string name="sign_in_login">Login</string>
     <string name="sign_in_auth_invalid">Wrong login or password</string>
     <string name="sign_in_auth_error">Failed to validate data, please try again</string>
-    <string name="sign_in_validation_error">Incorrect login or password</string>
+    <string name="sign_in_validation_error">The field is filled incorrectly</string>
 
     <!--Catalog-->
     <string name="catalog_button_refresh_text">Update</string>
@@ -21,7 +21,6 @@
     <string name="catalog_notice_no_data_message">Try to update, suddenly the goods appeared</string>
     <string name="catalog_button_buy_text">Buy</string>
     <string name="catalog_toolbar_text">Catalog</string>
-
 
     <!--Profile-->
     <string name="profile_app_version_error">Failed to get application version</string>

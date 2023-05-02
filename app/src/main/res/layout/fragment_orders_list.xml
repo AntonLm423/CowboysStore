@@ -24,10 +24,7 @@
             android:layout_marginTop="@dimen/normal_100"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_order">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
+            tools:listitem="@layout/item_order"/>
     </FrameLayout>
     </com.example.cowboysstore.presentation.customviews.ProgressContainer>
 </layout>

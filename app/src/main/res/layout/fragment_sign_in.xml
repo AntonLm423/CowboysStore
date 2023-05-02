@@ -8,6 +8,7 @@
     </data>
 
     <FrameLayout
+        android:id="@+id/frameLayoutSignIn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
@@ -42,19 +43,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-            app:layout_constraintBottom_toTopOf="@id/textInputLayoutPassword"
-            app:boxCornerRadiusTopStart="@dimen/normal_50"
-            app:boxCornerRadiusTopEnd="@dimen/normal_50">
+            app:layout_constraintBottom_toTopOf="@id/textInputLayoutPassword">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextLogin"
+                android:fontFamily="@font/roboto_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_in_login_hint"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutPassword"
@@ -68,12 +67,11 @@
             app:endIconDrawable="@drawable/selector_password_toggle"
             app:endIconMode="password_toggle"
             app:endIconCheckable="true"
-            app:endIconTint="@color/black"
-            app:boxCornerRadiusTopStart="@dimen/normal_50"
-            app:boxCornerRadiusTopEnd="@dimen/normal_50">
+            app:endIconTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPassword"
+                android:fontFamily="@font/roboto_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_in_password"

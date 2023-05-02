@@ -17,7 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Product
 import com.example.cowboysstore.databinding.FragmentProductBinding
-import com.example.cowboysstore.presentation.adapters.PagerCarouselAdapter
+import com.example.cowboysstore.presentation.adapters.ProductPreviewCarouselAdapter
 import com.example.cowboysstore.presentation.adapters.ProductPreviewAdapter
 import com.example.cowboysstore.presentation.adapters.ProductStructureAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
@@ -35,7 +35,7 @@ class ProductFragment : Fragment() {
     private val viewModel : ProductViewModel by viewModels()
 
     private val productStructureAdapter by lazy { ProductStructureAdapter() }
-    private val pagerCarouselAdapter by lazy { PagerCarouselAdapter()  }
+    private val productPreviewCarouselAdapter by lazy { ProductPreviewCarouselAdapter()  }
     private val productPreviewAdapter by lazy { ProductPreviewAdapter() }
 
     private val selectedItemDecorator by lazy { SelectedItemDecorator(requireContext()) }
@@ -102,11 +102,9 @@ class ProductFragment : Fragment() {
     * autoCompletedTextViewSize
     * bottomSheetDialogSizSelection
     * by product object */
-    private fun refreshContent(
-        product: Product
-    ) {
+    private fun refreshContent(product: Product) =
         with(binding) {
-
+            toolbarProduct.title = product.title
             textViewDescription.text = product.description
             textViewTitle.text = product.title
             textViewPrice.text = product.price.toString() + " ₽"
@@ -127,7 +125,6 @@ class ProductFragment : Fragment() {
             textInputLayoutSize.setOnClickListener {
                 sizeSelectionDialog.show()
             }
-
             /* Recycler view structure */
             recyclerViewStructure.apply {
                 layoutManager = LinearLayoutManager(
@@ -137,7 +134,6 @@ class ProductFragment : Fragment() {
                 )
                 adapter = productStructureAdapter
             }
-        }
         productStructureAdapter.submitList(product.details)
     }
 
@@ -145,7 +141,7 @@ class ProductFragment : Fragment() {
     private fun synchronizeCarousel(images : List<String>) {
         with(binding) {
         viewPagerProductPreview.apply {
-            adapter = pagerCarouselAdapter
+            adapter = productPreviewCarouselAdapter
         }
 
         viewPagerProductPreview.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -157,7 +153,7 @@ class ProductFragment : Fragment() {
             }
         })
 
-        pagerCarouselAdapter.submitList(images)
+        productPreviewCarouselAdapter.submitList(images)
 
        recyclerViewProductPreview.setOnClickListener {
        }
