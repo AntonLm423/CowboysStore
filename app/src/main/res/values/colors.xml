@@ -12,13 +12,17 @@
     <color name="elevation_color">#1A000000</color>
 
     <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
-    <color name="white_transparent">#FFFFFFBD</color>
-    <color name="light_red">#FF5252</color>
 
     <color name="black_20pc">#33000000</color>
     <color name="white_50pc">#80ffffff</color>
-
+    
+    <color name="white">#ffffff</color>
+    <color name="white_pressed">#80ffffff</color>
+    <color name="white_transparent">#FFFFFFBD</color>
+    
+    <color name="light_red">#FF5252</color>
+    <color name="light_red_pressed">#E03E3E</color>
+    
     <color name="green_success">#4CAF50</color>
     <color name="red_failure">#F44336</color>
     

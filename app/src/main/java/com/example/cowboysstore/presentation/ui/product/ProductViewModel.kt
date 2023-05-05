@@ -23,7 +23,7 @@ class ProductViewModel @Inject constructor(
     private val _uiState : MutableStateFlow<ProductUiState> = MutableStateFlow(ProductUiState.Loading)
     val uiState : StateFlow<ProductUiState> = _uiState
 
-    fun loadData(id : String) {
+    fun loadData(id : String ) {
         _uiState.update {
             ProductUiState.Loading
         }

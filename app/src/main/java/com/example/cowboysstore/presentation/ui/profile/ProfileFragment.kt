@@ -18,7 +18,6 @@ import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Profile
 import com.example.cowboysstore.databinding.FragmentProfileBinding
 import com.example.cowboysstore.presentation.adapters.MenuAdapter
-import com.example.cowboysstore.presentation.adapters.MenuItem
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
 import com.example.cowboysstore.presentation.decorators.SpacingItemDecorator
 import com.example.cowboysstore.presentation.ui.orders.OrdersFragment
@@ -100,9 +99,9 @@ class ProfileFragment : Fragment() {
         }
         menuAdapter.submitList(
             listOf(
-                MenuItem(1, getString(R.string.profile_menu_orders), R.drawable.ic_delivery),
-                MenuItem(1, getString(R.string.profile_menu_settings), R.drawable.ic_settings),
-                MenuItem(1, getString(R.string.profile_menu_sign_out), R.drawable.ic_logout)
+                MenuAdapter.MenuItem.Regular (1, getString(R.string.profile_menu_orders), R.drawable.ic_delivery),
+                MenuAdapter.MenuItem.Regular(2, getString(R.string.profile_menu_settings), R.drawable.ic_settings),
+                MenuAdapter.MenuItem.Red(3, getString(R.string.profile_menu_sign_out), R.drawable.ic_logout)
             )
         )
 

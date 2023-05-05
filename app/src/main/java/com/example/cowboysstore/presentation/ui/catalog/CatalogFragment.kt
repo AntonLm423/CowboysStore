@@ -83,8 +83,7 @@ class CatalogFragment : Fragment(), ProductAdapter.Listener {
     override fun onClick(productId: String) {
         parentFragmentManager.commit {
             /* Sending productId to ProductFragment  */
-            setFragmentResult(Constants.BUNDLE_KEY, bundleOf(Constants.PRODUCT_ID_KEY to productId))
-            replace(R.id.containerMain, ProductFragment())
+            replace(R.id.containerMain, ProductFragment.createInstance(productId))
             addToBackStack(null)
         }
     }

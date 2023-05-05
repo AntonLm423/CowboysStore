@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,8 +17,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Product
 import com.example.cowboysstore.databinding.FragmentProductBinding
-import com.example.cowboysstore.presentation.adapters.ProductPreviewCarouselAdapter
 import com.example.cowboysstore.presentation.adapters.ProductPreviewAdapter
+import com.example.cowboysstore.presentation.adapters.ProductPreviewCarouselAdapter
 import com.example.cowboysstore.presentation.adapters.ProductStructureAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
 import com.example.cowboysstore.presentation.decorators.SelectedItemDecorator
@@ -43,21 +43,30 @@ class ProductFragment : Fragment() {
 
     private lateinit var sizeSelectionDialog : SizeSelectionDialog
 
-    private lateinit var productId : String
+    private val productId by lazy {
+        requireNotNull(arguments?.getString(Constants.PRODUCT_ID_KEY))
+    }
+
+    companion object {
+        fun createInstance(productId : String) : ProductFragment =
+            ProductFragment().apply {
+                arguments = bundleOf(
+                    Constants.PRODUCT_ID_KEY to productId
+                )
+            }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.loadData(productId)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProductBinding.inflate(inflater,container, false)
-
-        /* Collecting productId from CatalogFragment */
-        setFragmentResultListener(Constants.BUNDLE_KEY) { _, bundle ->
-            productId = bundle.getString(Constants.PRODUCT_ID_KEY)!!
-            viewModel.loadData(productId)
-        }
-
         return binding.root
     }
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.cowboysstore.R
 import com.example.cowboysstore.databinding.FragmentOrdersBinding
 import com.example.cowboysstore.presentation.adapters.PagerTabAdapter
@@ -17,15 +18,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class OrdersFragment : Fragment() {
 
     private lateinit var binding : FragmentOrdersBinding
-    private val viewModel : OrdersViewModel by activityViewModels()
+    private val viewModel : OrdersViewModel by viewModels()
 
     private lateinit var pagerTabAdapter: PagerTabAdapter
 
     private lateinit var tabNames : List<String>
     private val fragmentList = listOf(
-        AllOrdersFragment(),
-        ActiveOrdersFragment()
+        OrdersListFragment.createInstance(false),
+        OrdersListFragment.createInstance(true)
     )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.loadData()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +39,6 @@ class OrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOrdersBinding.inflate(inflater,container, false)
-        viewModel.loadData()
         return binding.root
     }
 
