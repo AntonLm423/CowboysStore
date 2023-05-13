@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -131,9 +132,15 @@ class ProductFragment : Fragment() {
                 product.sizes.filter { it.isAvailable }.map { it.value }
             )
 
-            textInputLayoutSize.setOnClickListener {
+            sizeSelectionDialog.sizeSelectionAdapter.itemClickListener = { position ->
+                autoCompleteTextViewSize.setText(product.sizes[position].value)
+                sizeSelectionDialog.hide()
+            }
+
+            autoCompleteTextViewSize.setOnClickListener {
                 sizeSelectionDialog.show()
             }
+
             /* Recycler view structure */
             recyclerViewStructure.apply {
                 layoutManager = LinearLayoutManager(
@@ -143,7 +150,8 @@ class ProductFragment : Fragment() {
                 )
                 adapter = productStructureAdapter
             }
-        productStructureAdapter.submitList(product.details)
+
+            productStructureAdapter.submitList(product.details)
     }
 
     /* Synchronize viewPagerPreview and RecyclerViewPreview */
@@ -164,25 +172,6 @@ class ProductFragment : Fragment() {
 
         productPreviewCarouselAdapter.submitList(images)
 
-       recyclerViewProductPreview.setOnClickListener {
-       }
-
-        recyclerViewProductPreview.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
-            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                if (e.action == MotionEvent.ACTION_UP) {
-                    val childView = rv.findChildViewUnder(e.x, e.y)
-                    childView?.let {
-                        val position = rv.getChildAdapterPosition(it)
-                        viewPagerProductPreview.currentItem = position
-                    }
-                }
-                return false
-            }
-
-            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
-            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
-        })
-
         recyclerViewProductPreview.apply {
             layoutManager = LinearLayoutManager(
                 requireContext(),
@@ -194,6 +183,9 @@ class ProductFragment : Fragment() {
         }
 
         productPreviewAdapter.submitList(images)
+        productPreviewAdapter.itemClickListener = { position ->
+            viewPagerProductPreview.currentItem = position
+        }
     }
     }
 }

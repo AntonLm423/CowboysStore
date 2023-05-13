@@ -9,13 +9,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class SizeSelectionDialog(
     context : Context,
-    private val availableSizes : List<String>
+    private val availableSizes : List<String>,
 ) : BottomSheetDialog(context) {
 
-    private var onSizeItemClickListener: OnSizeItemClickListener? = null
-
     private lateinit var binding : DialogSizeSelectionBinding
-    private val sizeSelectionAdapter by lazy { SizeSelectionAdapter() }
+    val sizeSelectionAdapter by lazy { SizeSelectionAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +26,5 @@ class SizeSelectionDialog(
         }
 
         sizeSelectionAdapter.submitList(availableSizes)
-    }
-
-    fun setOnItemClickListener(listener: OnSizeItemClickListener) {
-        onSizeItemClickListener = listener
-    }
-
-    interface OnSizeItemClickListener {
-        fun onItemClick(item: String)
     }
 }

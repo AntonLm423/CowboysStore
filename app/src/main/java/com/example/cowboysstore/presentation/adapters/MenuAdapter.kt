@@ -40,9 +40,9 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
         private fun bindRegularItem(menuItem: MenuItem.Regular) = with(itemBinding) {
             imageViewPicture.setImageResource(menuItem.iconResId)
             textViewItemName.text = menuItem.title
-            itemMenu.setBackgroundResource(R.color.item_menu_regular_selector)
+            itemMenu.setBackgroundResource(R.color.selector_clickable_item_white)
             itemMenu.setOnClickListener {
-               onItemClickListener?.invoke(adapterPosition)
+               onItemClickListener?.invoke(bindingAdapterPosition)
            }
         }
 
@@ -50,9 +50,9 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
             imageViewPicture.setImageResource(menuItem.iconResId)
             textViewItemName.text = menuItem.title
             textViewItemName.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-            itemMenu.setBackgroundResource(R.color.item_menu_red_selector)
+            itemMenu.setBackgroundResource(R.color.selector_clickable_item_red)
             itemMenu.setOnClickListener {
-                onItemClickListener?.invoke(adapterPosition)
+                onItemClickListener?.invoke(bindingAdapterPosition)
             }
         }
     }

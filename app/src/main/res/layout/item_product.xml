@@ -11,7 +11,7 @@
         android:id="@+id/itemProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/item_product_selector"
+        android:background="@color/selector_clickable_item_white"
         android:focusable="true"
         android:clickable="true">
 

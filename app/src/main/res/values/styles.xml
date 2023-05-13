@@ -110,6 +110,9 @@
 
     <!-- Button -->
     <style name="Theme.CowboysStore.Button" parent="Widget.Material3.Button.UnelevatedButton">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/text_button_size</item>
+        <item name="lineHeight">@dimen/text_button_size</item>
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/smalt</item>
         <item name="cornerRadius">@dimen/button_corner_radius</item>
@@ -124,12 +127,32 @@
     </style>
     <!--Button -->
 
+    <!--TabLayout item-->
     <style name="TabItem">
             <item name="android:textSize">@dimen/text_button_size</item>
             <item name="lineHeight">@dimen/text_button_line</item>
             <item name="fontFamily">@font/roboto_medium</item>
             <item name="textAllCaps">true</item>
     </style>
+    <!--TabLayout item-->
 
+    <!--Alert Dialog Style-->
+    <style name="Theme.CowboysStore.AlertDialog" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="cornerRadius">@dimen/normal_200</item>
+        <item name="android:radius">@dimen/normal_100</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Theme.CowboysStore.AlertDialog.Button</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Theme.CowboysStore.AlertDialog.Button</item>
+    </style>
+
+    <style name="Theme.CowboysStore.AlertDialog.Button" parent="Widget.Material3.Button.UnelevatedButton">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/smalt</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!--Alert Dialog Style-->
 
 </resources>

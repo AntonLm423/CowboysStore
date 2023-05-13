@@ -17,6 +17,8 @@ class SizeSelectionAdapter(): RecyclerView.Adapter<SizeSelectionAdapter.SizeSele
             oldItem == newItem
     }
 
+    var itemClickListener : (Int) -> Unit = { }
+
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SizeSelectionViewHolder =
@@ -40,6 +42,10 @@ class SizeSelectionAdapter(): RecyclerView.Adapter<SizeSelectionAdapter.SizeSele
 
         fun bind(size : String) = with(itemBinding) {
             textViewSize.text = size
+
+            itemBinding.root.setOnClickListener {
+                itemClickListener.invoke(bindingAdapterPosition)
+            }
         }
     }
 

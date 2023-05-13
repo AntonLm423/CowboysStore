@@ -1,5 +1,7 @@
 package com.example.cowboysstore.presentation.ui.profile
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -114,9 +116,7 @@ class ProfileFragment : Fragment() {
                     // TODO: Profile settings Fragment
                 }
                 2 -> {
-                    // TODO: Logout dialog
-                    viewModel.clearAccessToken()
-                    navigateToSignIn()
+                    showAlertDialog()
                 }
             }
         }
@@ -135,6 +135,20 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun showAlertDialog() {
+        val builder = AlertDialog.Builder(requireContext(), R.style.Theme_CowboysStore_AlertDialog)
+        builder.setTitle(getString(R.string.profile_exit_dialog_title))
+        builder.setPositiveButton(getString(R.string.profile_exit_dialog_positive)) { dialog, which ->
+            viewModel.clearAccessToken()
+            navigateToSignIn()
+        }
+        builder.setNegativeButton(getString(R.string.profile_exit_dialog_negative)) { dialog, which ->
+            dialog.cancel()
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
     private fun navigateToOrders() {
         parentFragmentManager.commit {
             replace(R.id.containerMain, OrdersFragment())
@@ -144,7 +158,6 @@ class ProfileFragment : Fragment() {
 
     private fun navigateToSignIn() {
         parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
         parentFragmentManager.commit {
             replace(R.id.containerMain, SignInFragment())
         }

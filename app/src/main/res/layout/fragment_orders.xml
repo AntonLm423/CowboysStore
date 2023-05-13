@@ -13,11 +13,9 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayoutOrders"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:fitsSystemWindows="true"
-            app:layout_anchor="@id/progressContainerOrders"
-            app:layout_anchorGravity="top">
+            android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbarOrders"
@@ -35,7 +33,10 @@
         <com.example.cowboysstore.presentation.customviews.ProgressContainer
             android:id="@+id/progressContainerOrders"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_anchor="@id/appBarLayoutOrders"
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"

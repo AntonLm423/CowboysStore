@@ -30,10 +30,14 @@
     <string name="profile_menu_sign_out">Sign out</string>
     <string name="profile_data_loading_error">Failed to get profile</string>
     <string name="profile_data_loading_message">Please try again</string>
+    <string name="profile_exit_dialog_title">Are your sure want to log out?</string>
+    <string name="profile_exit_dialog_positive">Log out</string>
+    <string name="profile_exit_dialog_negative">Cancel</string>
 
     <!--Product-->
     <string name="product_hit_of_the_season">Hit of the season</string>
     <string name="product_size_hint">Size</string>
+    <string name="product_button_buy_now">Buy now</string>
 
     <!--Orders-->
     <string name="orders_tab_all">All</string>
@@ -49,5 +53,8 @@
     <string name="sign_in_auth_user_not_registered">User not registered</string>
     <string name="orders_no_data">As long as it\'s empty</string>
     <string name="orders_no_data_message">Order something and orders will appear here</string>
+    <string name="orders_input_date_format">yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'</string>
+    <string name="orders_output_date_format">%1\$td.%1\$tm.%1\$ty %1\$tH:%1\$tM</string>
+
 
 </resources>

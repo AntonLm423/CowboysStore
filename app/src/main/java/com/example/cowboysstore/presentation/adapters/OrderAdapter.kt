@@ -3,6 +3,7 @@ package com.example.cowboysstore.presentation.adapters
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,9 @@ import coil.transform.RoundedCornersTransformation
 import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Order
 import com.example.cowboysstore.databinding.ItemOrderBinding
+import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.util.*
 
 class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
@@ -29,11 +32,11 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
             if(order.status == "in_work") {
                 textViewOrderStatus.text = itemView.context.getString(R.string.orders_order_status_in_work)
-                textViewOrderStatus.setTextColor(Color.parseColor("#4CAF50"))
+                textViewOrderStatus.setTextColor(ContextCompat.getColor(itemView.context, R.color.green_success))
             }
             else {
                 textViewOrderStatus.text = itemView.context.getString(R.string.orders_order_status_canceled)
-                textViewOrderStatus.setTextColor(Color.parseColor("#F44336"))
+                textViewOrderStatus.setTextColor(ContextCompat.getColor(itemView.context, R.color.red_failure))
             }
 
             imageViewOrderPreview.load(order.productPreview) {
@@ -77,10 +80,10 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     }
 
     private fun formatDate(inputDate: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
         val date = inputFormat.parse(inputDate)
 
-        val outputFormat = SimpleDateFormat("dd.MM.yy HH:mm")
+        val outputFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault())
         return outputFormat.format(date)
     }
 

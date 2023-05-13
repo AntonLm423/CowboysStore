@@ -9,8 +9,7 @@ import coil.load
 import com.example.cowboysstore.R
 import com.example.cowboysstore.databinding.ItemProductPreviewBinding
 
-
-class ProductPreviewAdapter : RecyclerView.Adapter<ProductPreviewAdapter.RecyclerCarouselViewHolder>() {
+class ProductPreviewAdapter : RecyclerView.Adapter<ProductPreviewAdapter.ProductPreviewViewHolder>() {
 
     private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =
@@ -20,10 +19,12 @@ class ProductPreviewAdapter : RecyclerView.Adapter<ProductPreviewAdapter.Recycle
             oldItem == newItem
     }
 
+    var itemClickListener : (Int) -> Unit = {}
+
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerCarouselViewHolder =
-        RecyclerCarouselViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductPreviewViewHolder =
+        ProductPreviewViewHolder(
             ItemProductPreviewBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -31,13 +32,13 @@ class ProductPreviewAdapter : RecyclerView.Adapter<ProductPreviewAdapter.Recycle
             )
         )
 
-    override fun onBindViewHolder(holder: RecyclerCarouselViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductPreviewViewHolder, position: Int) {
         holder.bind(differ.currentList[position])
     }
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    inner class RecyclerCarouselViewHolder(private val itemBinding: ItemProductPreviewBinding) :
+    inner class ProductPreviewViewHolder(private val itemBinding: ItemProductPreviewBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(image: String) {
@@ -45,6 +46,10 @@ class ProductPreviewAdapter : RecyclerView.Adapter<ProductPreviewAdapter.Recycle
                 crossfade(true)
                 error(R.drawable.no_data)
                 placeholder(R.drawable.no_data)
+            }
+
+            itemBinding.root.setOnClickListener {
+                itemClickListener.invoke(bindingAdapterPosition)
             }
         }
     }

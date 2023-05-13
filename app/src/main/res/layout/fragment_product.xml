@@ -89,6 +89,7 @@
                         <TextView
                             android:id="@+id/textViewPrice"
                             style="@style/TextAppearance.H2"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
@@ -110,6 +111,7 @@
                     <TextView
                         android:id="@+id/textViewTitle"
                         style="TextAppearance.H3"
+                        android:fontFamily="@font/roboto_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
@@ -172,6 +174,7 @@
                     <TextView
                         android:id="@+id/textViewDescription"
                         style="@style/TextAppearance.Body"
+                        android:fontFamily="@font/roboto_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/normal_100"
@@ -203,6 +206,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/normal_100"
                         android:layout_marginEnd="@dimen/normal_100"
+                        android:layout_marginBottom="@dimen/normal_400"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -210,6 +214,18 @@
                         tools:listitem="@layout/item_product_structure" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
+
+            <Button
+                android:id="@+id/buttonBuyNow"
+                style="@style/Theme.CowboysStore.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/normal_100"
+                android:layout_marginEnd="@dimen/normal_100"
+                android:text="@string/product_button_buy_now"
+                android:textAllCaps="true"
+                android:layout_marginBottom="@dimen/normal_100"/>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </com.example.cowboysstore.presentation.customviews.ProgressContainer>
     </layout>

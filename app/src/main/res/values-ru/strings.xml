@@ -32,10 +32,14 @@
     <string name="profile_menu_sign_out">Выйти</string>
     <string name="profile_data_loading_error">Не удалось получить данные профиля</string>
     <string name="profile_data_loading_message">Попробуйте повторить попытку</string>
+    <string name="profile_exit_dialog_title">Вы действительно хотите выйти?</string>
+    <string name="profile_exit_dialog_positive">Выйти</string>
+    <string name="profile_exit_dialog_negative">Отмена</string>
 
     <!--Продукт-->
     <string name="product_hit_of_the_season">Хит сезона</string>
     <string name="product_size_hint">Размер</string>
+    <string name="product_button_buy_now">Купить сейчас</string>
 
     <!--Заказы-->
     <string name="orders_tab_active">Активные</string>
@@ -51,5 +55,9 @@
     <string name="sign_in_auth_user_not_registered">Пользователь не зарегистирован</string>
     <string name="orders_no_data">Заказов не обнаружено</string>
     <string name="orders_no_data_message">Закажите что-нибудь и заказы появятся тут</string>
+    <string name="orders_input_date_format">yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'</string>
+    <string name="orders_output_date_format">%1\$tm/%1\$td/%1\$ty %1\$t:%1\$tM %1\$Tp</string>
+
+
 
 </resources>
