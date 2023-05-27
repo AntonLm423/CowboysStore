@@ -11,6 +11,7 @@
         <item name="materialButtonStyle">@style/Theme.CowboysStore.Button</item>
         <item name="android:actionBarSize">@dimen/appbar_height</item>
         <item name="backgroundColor">@color/background_color</item>
+        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
 </resources>

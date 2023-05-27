@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cowboysstore.R
 import com.example.cowboysstore.data.model.Order
+import com.example.cowboysstore.domain.usecases.CancelOrderUseCase
 import com.example.cowboysstore.domain.usecases.GetOrdersUseCase
 import com.example.cowboysstore.domain.usecases.GetProductUseCase
 import com.example.cowboysstore.utils.LoadException
@@ -17,21 +18,23 @@ import javax.inject.Inject
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
     private val getOrdersUseCase: GetOrdersUseCase,
-    private val getProductUseCase : GetProductUseCase
+    private val getProductUseCase: GetProductUseCase,
+    private val cancelOrderUseCase: CancelOrderUseCase
 ) : ViewModel() {
 
-    private val _allOrdersUiSate : MutableStateFlow<OrderUiState> = MutableStateFlow(OrderUiState.Loading)
-    val allOrderUiState : StateFlow<OrderUiState> = _allOrdersUiSate
+    private val _allOrdersUiSate: MutableStateFlow<OrderUiState> = MutableStateFlow(OrderUiState.Loading)
+    val allOrderUiState: StateFlow<OrderUiState> = _allOrdersUiSate
 
-    private val _activeOrdersUiState : MutableStateFlow<OrderUiState> = MutableStateFlow(OrderUiState.Loading)
-    val activeOrderUiState : StateFlow<OrderUiState> = _activeOrdersUiState
+    private val _activeOrdersUiState: MutableStateFlow<OrderUiState> = MutableStateFlow(OrderUiState.Loading)
+    val activeOrderUiState: StateFlow<OrderUiState> = _activeOrdersUiState
+
+    private val _cancelingOrderUiState: MutableStateFlow<CancelingOrderUiState> = MutableStateFlow(CancelingOrderUiState.Error)
+    val cancelingOrderUiState: StateFlow<CancelingOrderUiState> = _cancelingOrderUiState
 
     fun loadData() {
-
         _allOrdersUiSate.update {
             OrderUiState.Loading
         }
-
         _activeOrdersUiState.update {
             OrderUiState.Loading
         }
@@ -49,39 +52,77 @@ class OrdersViewModel @Inject constructor(
                         it.productId = productTitle
                     }
                 }
-
                 deferredTasks.awaitAll()
 
                 _allOrdersUiSate.update {
                     OrderUiState.Success(ordersList)
                 }
-
                 _activeOrdersUiState.update {
                     OrderUiState.Success(ordersList.filter { it.status == "in_work" })
                 }
             } catch (e: LoadException) {
                 _allOrdersUiSate.update {
                     OrderUiState.Error(
-                        e.errorResId ?: R.string.unknown_error,
-                        e.messageResId ?: R.string.unknown_error_message
+                        e.errorResId ?: R.string.unknown_error, e.messageResId ?: R.string.unknown_error_message
                     )
                 }
                 _activeOrdersUiState.update {
                     OrderUiState.Error(
-                        e.errorResId ?: R.string.unknown_error,
-                        e.messageResId ?: R.string.unknown_error_message
+                        e.errorResId ?: R.string.unknown_error, e.messageResId ?: R.string.unknown_error_message
                     )
                 }
             }
         }
     }
 
+    fun cancelOrder(orderId: String) {
+        _cancelingOrderUiState.update {
+            CancelingOrderUiState.Loading
+        }
+        viewModelScope.launch {
+            try {
+                val order = withContext(Dispatchers.IO) {
+                    cancelOrderUseCase.CancelOrder(orderId)
+                }
+                _cancelingOrderUiState.update {
+                    CancelingOrderUiState.Success(order)
+                }
+            } catch (e: Exception) {
+                _cancelingOrderUiState.update {
+                    CancelingOrderUiState.Error
+                }
+            }
+        }
+    }
+
+    fun getOrderUiStateFlow(isActiveOrdersOnly: Boolean): StateFlow<OrderUiState> {
+        return if (isActiveOrdersOnly) {
+            activeOrderUiState
+        } else {
+            allOrderUiState
+        }
+    }
+
+    fun updateLists(orderList: List<Order>) {
+        _allOrdersUiSate.update {
+            OrderUiState.Success(orderList)
+        }
+        _activeOrdersUiState.update {
+            OrderUiState.Success(orderList.filter { it.status == "in_work" })
+        }
+    }
+
     sealed class OrderUiState {
         object Loading : OrderUiState()
-        class Success(val ordersList : List<Order>) : OrderUiState()
+        class Success(val ordersList: List<Order>) : OrderUiState()
         class Error(
-            val errorResId: Int,
-            val messageResId : Int
+            val errorResId: Int, val messageResId: Int
         ) : OrderUiState()
+    }
+
+    sealed class CancelingOrderUiState {
+        object Loading : CancelingOrderUiState()
+        class Success(val order: Order) : CancelingOrderUiState()
+        object Error : CancelingOrderUiState()
     }
 }

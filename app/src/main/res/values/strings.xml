@@ -42,19 +42,37 @@
     <!--Orders-->
     <string name="orders_tab_all">All</string>
     <string name="orders_tab_active">Active</string>
-    <string name="orders_text_delivery_date">Delivery date</string>
-    <string name="orders_text_delivery_at">at</string>
-    <string name="orders_text_delivery_address">Delivery address</string>
+    <string name="orders_text_delivery_address">Delivery address: %1$s</string>
     <string name="orders_text_order">Order</string>
-    <string name="orders_text_from">from</string>
     <string name="orders_order_status_in_work">In work</string>
     <string name="orders_order_status_canceled">Canceled</string>
     <string name="orders_toolbar_text">My orders</string>
     <string name="sign_in_auth_user_not_registered">User not registered</string>
     <string name="orders_no_data">As long as it\'s empty</string>
     <string name="orders_no_data_message">Order something and orders will appear here</string>
-    <string name="orders_input_date_format">yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'</string>
-    <string name="orders_output_date_format">%1\$td.%1\$tm.%1\$ty %1\$tH:%1\$tM</string>
+    <string name="orders_popup_cancel">Cancel</string>
+    <string name="orders_cancel_success">Order №%1$d от %2$s was successfully cancel</string>
+    <string name="orders_cancel_error">An error occurred during order cancellation</string>
+    <!--Orders dates-->
+    <string name="orders_order_from">Order #%1$d from %2$s</string>
+    <string name="orders_order_from_format">"'at' dd.MM.yy HH:mm"</string>
+    <string name="orders_delivery_date">Delivery Date: %s</string>
+    <string name="orders_delivery_date_format">"dd.MM.yy 'at' HH:mm"</string>
+    <string name="orders_cancel">Was canceled %1$s</string>
 
+    <!--Settings-->
+    <string name="settings_name_hint">Name</string>
+    <string name="settings_surname_hint">Surname</string>
+    <string name="settings_occupation_hint">Occupation</string>
+    <string name="settings_button_apply_changes">Apply changes</string>
+    <string name="settings_image_source_camera">Make photo</string>
+    <string name="settings_image_source_gallery">Select from gallery</string>
+    <string name="settings_occupation_developer">Developer</string>
+    <string name="settings_occupation_tester">Tester</string>
+    <string name="settings_occupation_manager">Manager</string>
+    <string name="settings_occupation_other">Other</string>
+    <string name="settings_other_occupation">Other occupation</string>
+    <string name="settings_change_error">An error occurred while editing a profile</string>
+    <string name="settings_change_success">Profile was successfully changed</string>
 
 </resources>

@@ -12,11 +12,10 @@ class AuthorizationUseCase @Inject constructor(
         email: String,
         password: String
     ): String {
-        val result = remoteRepository.authorization(email,password)
+        val result = remoteRepository.authorization(email, password)
 
         return result.getOrElse {
             throw result.exceptionOrNull() ?: LoadException()
         }
-
     }
 }

@@ -21,26 +21,24 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SignInFragment()
-: Fragment() {
+class SignInFragment() : Fragment() {
 
-   private val viewModel : SignInViewModel by viewModels()
-   private lateinit var binding : FragmentSignInBinding
+    private val viewModel: SignInViewModel by viewModels()
+    private lateinit var binding: FragmentSignInBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-      binding = FragmentSignInBinding.inflate(inflater,container, false)
+        binding = FragmentSignInBinding.inflate(inflater, container, false)
 
 
+        /* if(checkAuthToken()) {
+               navigateToCatalog()
+           }*/
 
-   /* if(checkAuthToken()) {
-          navigateToCatalog()
-      }*/
-
-      return binding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +50,7 @@ class SignInFragment()
         /************************************************/
 
         binding.buttonSignIn.setOnClickListener {
-           tryLogIn()
+            tryLogIn()
         }
 
         binding.editTextPassword.setOnEditorActionListener { _, actionId, event ->
@@ -62,8 +60,7 @@ class SignInFragment()
             ) {
                 tryLogIn()
                 true
-            }
-           else {
+            } else {
                 false
             }
         }
@@ -120,7 +117,6 @@ class SignInFragment()
     private fun navigateToCatalog() {
         parentFragmentManager.commit {
             replace(R.id.containerMain, CatalogFragment())
-            addToBackStack(null)
         }
     }
 }

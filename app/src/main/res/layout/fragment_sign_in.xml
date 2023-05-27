@@ -47,7 +47,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextLogin"
-                android:fontFamily="@font/roboto_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_in_login_hint"
@@ -71,7 +70,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPassword"
-                android:fontFamily="@font/roboto_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_in_password"

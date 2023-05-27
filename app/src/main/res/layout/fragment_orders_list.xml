@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,19 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewOrdersList"
-            android:layout_marginStart="@dimen/normal_100"
-            android:layout_marginEnd="@dimen/normal_100"
-            android:layout_marginTop="@dimen/normal_100"
+        <FrameLayout
+            android:id="@+id/frameLayoutOrdersList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_order"/>
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewOrdersList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_100"
+                android:layout_marginEnd="@dimen/normal_100"
+                tools:listitem="@layout/item_order" />
+        </FrameLayout>
     </com.example.cowboysstore.presentation.customviews.ProgressContainer>
 </layout>

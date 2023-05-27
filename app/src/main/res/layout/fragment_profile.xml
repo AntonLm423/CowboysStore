@@ -8,6 +8,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayoutProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -43,7 +44,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayoutProfileInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="166dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/smalt"
                     android:orientation="vertical"
                     app:layout_constraintTop_toTopOf="parent"
@@ -53,15 +54,16 @@
                     app:layout_constraintVertical_chainStyle="packed"
                     app:layout_constraintVertical_bias="0">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageViewUserAvatar"
                         android:layout_width="90dp"
-                        android:layout_height="82dp"
+                        android:layout_height="90dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="@dimen/normal_100"
                         app:layout_constraintHeight_max="90dp"
                         app:layout_constraintWidth_max="90dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        app:civ_circle_background_color="@color/background_color"
+                        tools:src="@drawable/no_data" />
 
                     <TextView
                         android:id="@+id/textViewUserName"
@@ -73,7 +75,7 @@
                         android:textColor="@color/white" />
 
                     <TextView
-                        android:id="@+id/textViewUserPosition"
+                        android:id="@+id/textViewUserOccupation"
                         style="@style/TextAppearance.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -74,7 +74,7 @@ class CatalogFragment : Fragment(), ProductAdapter.Listener {
 
     private fun navigateToProfile() {
         parentFragmentManager.commit {
-            replace(R.id.containerMain, ProfileFragment())
+            replace(R.id.containerMain, ProfileFragment.createInstance(false))
             addToBackStack(null)
         }
     }

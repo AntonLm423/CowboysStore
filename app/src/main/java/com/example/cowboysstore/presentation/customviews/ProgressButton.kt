@@ -11,16 +11,16 @@ import com.example.cowboysstore.R
 import kotlin.properties.Delegates
 
 class ProgressButton @JvmOverloads constructor(
-    context : Context,
-    attrs : AttributeSet? = null,
-    defStyleAttr : Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val button : Button
-    private val progressBar : ProgressBar
+    private val button: Button
+    private val progressBar: ProgressBar
 
-    private var buttonText : String? = null
-    private var isAllCaps : Boolean = false
+    private var buttonText: String? = null
+    private var isAllCaps: Boolean = false
 
     init {
         val root = LayoutInflater.from(context).inflate(R.layout.view_progress_button, this, true)
@@ -33,19 +33,17 @@ class ProgressButton @JvmOverloads constructor(
         ta.recycle()
     }
 
-    var isLoading : Boolean by Delegates.observable(false) {_, _, isLoading ->
+    var isLoading: Boolean by Delegates.observable(false) { _, _, isLoading ->
         progressBar.isVisible = isLoading
-
         button.isClickable = !isLoading
-        button.textScaleX = if(isLoading) 0f else 1f
+        button.textScaleX = if (isLoading) 0f else 1f
     }
 
-    fun setText(resId : Int) {
+    fun setText(resId: Int) {
         button.setText(resId)
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
         button.setOnClickListener(l)
     }
-
 }

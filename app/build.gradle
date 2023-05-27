@@ -59,6 +59,12 @@ dependencies {
     /* RETROFIT */
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
+    /* LOGGING */
+    implementation'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    /* CIRCLE IMAGE VIEW */
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
     /* GSON */
     implementation 'com.google.code.gson:gson:2.10.1'
 

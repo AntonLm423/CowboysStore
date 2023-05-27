@@ -54,17 +54,16 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0">
-                    </androidx.viewpager2.widget.ViewPager2>
+                        app:layout_constraintVertical_bias="0.0"></androidx.viewpager2.widget.ViewPager2>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewProductPreview"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:padding="@dimen/normal_25"
-                        android:layout_marginBottom="@dimen/normal_100"
                         android:layout_marginStart="@dimen/normal_100"
                         android:layout_marginEnd="@dimen/normal_100"
+                        android:layout_marginBottom="@dimen/normal_100"
+                        android:padding="@dimen/normal_25"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toTopOf="@id/frameLayoutWrapper"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -81,28 +80,28 @@
                         android:layout_marginStart="@dimen/normal_100"
                         android:layout_marginEnd="@dimen/normal_100"
                         android:layout_marginBottom="@dimen/normal_100"
-                        app:layout_constraintTop_toBottomOf="@id/recyclerViewProductPreview"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/textViewTitle"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/textViewTitle">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recyclerViewProductPreview">
 
                         <TextView
                             android:id="@+id/textViewPrice"
                             style="@style/TextAppearance.H2"
-                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:gravity="center"
-                            android:text="9 000 ₽" />
+                            android:text="9 000 ₽"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textViewBadge"
                             style="@style/TextAppearance.Body2"
                             android:layout_width="99dp"
                             android:layout_height="24dp"
-                            android:background="@drawable/badge"
                             android:layout_gravity="end"
+                            android:background="@drawable/badge"
                             android:gravity="center"
                             android:text="@string/product_hit_of_the_season"
                             android:textColor="@color/white" />
@@ -111,15 +110,15 @@
                     <TextView
                         android:id="@+id/textViewTitle"
                         style="TextAppearance.H3"
-                        android:fontFamily="@font/roboto_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/normal_100"
+                        android:layout_marginEnd="@dimen/normal_100"
                         android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/roboto_medium"
                         android:maxLines="3"
                         android:text="Men's Nike Tom Brady Red Tampa Bay Buccaneers Super Bowl LV Bound Game Jersey"
                         android:textColor="@color/black"
-                        android:layout_marginStart="@dimen/normal_100"
-                        android:layout_marginEnd="@dimen/normal_100"
                         app:layout_constraintBottom_toTopOf="@id/textViewCategory"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -130,11 +129,11 @@
                         style="@style/TextAppearance.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/normal_100"
+                        android:layout_marginEnd="@dimen/normal_100"
                         android:layout_marginBottom="@dimen/normal_100"
                         android:text="Джерси"
                         android:textColor="@color/silver_chalice"
-                        android:layout_marginStart="@dimen/normal_100"
-                        android:layout_marginEnd="@dimen/normal_100"
                         app:flow_firstHorizontalBias="0.0"
                         app:layout_constraintBottom_toTopOf="@id/textInputLayoutSize"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -146,11 +145,11 @@
                         android:id="@+id/textInputLayoutSize"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingBottom="@dimen/normal_100"
                         android:layout_marginStart="@dimen/normal_100"
                         android:layout_marginEnd="@dimen/normal_100"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginBottom="@dimen/normal_100"
                         app:endIconDrawable="@drawable/ic_dropdown"
                         app:endIconMode="custom"
                         app:layout_constraintBottom_toTopOf="@id/textViewDescription"
@@ -162,11 +161,13 @@
                             android:id="@+id/autoCompleteTextViewSize"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:hint="@string/product_size_hint"
                             android:paddingStart="@dimen/normal_100"
                             android:paddingTop="22dp"
+                            android:paddingEnd="0dp"
                             android:text="XL"
                             android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -174,14 +175,14 @@
                     <TextView
                         android:id="@+id/textViewDescription"
                         style="@style/TextAppearance.Body"
-                        android:fontFamily="@font/roboto_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/normal_100"
-                        android:text="The Tampa Bay Buccaneers are headed to Super Bowl LV! As a major fan, this is no surprise but it's definitely worth celebrating, especially after the unprecedented 2020 NFL season. Add this Tom Brady Game Jersey to your collection to ensure you're Super Bowl ready. This Nike gear features bold commemorative graphics that will let the Tampa Bay Buccaneers know they have the best fans in the league."
-                        android:textColor="@color/black"
                         android:layout_marginStart="@dimen/normal_100"
                         android:layout_marginEnd="@dimen/normal_100"
+                        android:layout_marginBottom="@dimen/normal_100"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="The Tampa Bay Buccaneers are headed to Super Bowl LV! As a major fan, this is no surprise but it's definitely worth celebrating, especially after the unprecedented 2020 NFL season. Add this Tom Brady Game Jersey to your collection to ensure you're Super Bowl ready. This Nike gear features bold commemorative graphics that will let the Tampa Bay Buccaneers know they have the best fans in the league."
+                        android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="@id/viewDivider"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -191,10 +192,10 @@
                         android:id="@+id/viewDivider"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginBottom="@dimen/normal_100"
-                        android:background="@color/seashell"
                         android:layout_marginStart="@dimen/normal_100"
                         android:layout_marginEnd="@dimen/normal_100"
+                        android:layout_marginBottom="@dimen/normal_100"
+                        android:background="@color/seashell"
                         app:layout_constraintBottom_toTopOf="@id/recyclerViewStructure"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -223,9 +224,9 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="@dimen/normal_100"
                 android:layout_marginEnd="@dimen/normal_100"
+                android:layout_marginBottom="@dimen/normal_100"
                 android:text="@string/product_button_buy_now"
-                android:textAllCaps="true"
-                android:layout_marginBottom="@dimen/normal_100"/>
+                android:textAllCaps="true" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </com.example.cowboysstore.presentation.customviews.ProgressContainer>
-    </layout>
+</layout>

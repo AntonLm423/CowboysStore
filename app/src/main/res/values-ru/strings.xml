@@ -44,20 +44,37 @@
     <!--Заказы-->
     <string name="orders_tab_active">Активные</string>
     <string name="orders_tab_all">Все</string>
-    <string name="orders_text_delivery_date">Дата доставки</string>
-    <string name="orders_text_delivery_at">в</string>
-    <string name="orders_text_delivery_address">Адрес доставки</string>
+    <string name="orders_text_delivery_address">Адрес доставки: %1$s</string>
     <string name="orders_text_order">Заказ</string>
-    <string name="orders_text_from">от</string>
     <string name="orders_order_status_in_work">В работе</string>
     <string name="orders_order_status_canceled">Отменен</string>
     <string name="orders_toolbar_text">Мои заказы</string>
     <string name="sign_in_auth_user_not_registered">Пользователь не зарегистирован</string>
     <string name="orders_no_data">Заказов не обнаружено</string>
     <string name="orders_no_data_message">Закажите что-нибудь и заказы появятся тут</string>
-    <string name="orders_input_date_format">yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'</string>
-    <string name="orders_output_date_format">%1\$tm/%1\$td/%1\$ty %1\$t:%1\$tM %1\$Tp</string>
+    <string name="orders_popup_cancel">Отменить</string>
+    <string name="orders_cancel_success">Заказ №%1$d от %2$s был успешно отменен</string>
+    <string name="orders_cancel_error">Произошла ошибка во время отмены заказа</string>
+    <!--Заказы даты-->
+    <string name="orders_order_from">Заказ №%1$d от %2$s</string>
+    <string name="orders_order_from_format">"'от' dd.MM.yy HH:mm"</string>
+    <string name="orders_delivery_date">Дата доставки: %s</string>
+    <string name="orders_delivery_date_format">"dd.MM.yy 'в' HH:mm"</string>
+    <string name="orders_cancel">Был отменён %1$s</string>
 
-
+    <!--Настройки-->
+    <string name="settings_name_hint">Имя</string>
+    <string name="settings_surname_hint">Фамилия</string>
+    <string name="settings_occupation_hint">Род деятельности</string>
+    <string name="settings_button_apply_changes">Изменить</string>
+    <string name="settings_image_source_camera">Сделать снимок</string>
+    <string name="settings_image_source_gallery">Выбрать из галереи</string>
+    <string name="settings_occupation_developer">Разработчик</string>
+    <string name="settings_occupation_tester">Тестировщик</string>
+    <string name="settings_occupation_manager">Менеджер</string>
+    <string name="settings_occupation_other">Другое</string>
+    <string name="settings_other_occupation">Другой вид деятельности</string>
+    <string name="settings_change_error">Во время изменения профиля произошла ошибка</string>
+    <string name="settings_change_success">Профиль был успешно изменен</string>
 
 </resources>

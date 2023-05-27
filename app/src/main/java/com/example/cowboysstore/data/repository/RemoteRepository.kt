@@ -1,16 +1,14 @@
 package com.example.cowboysstore.data.repository
 
+import android.util.Log
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.AuthRequest
-import com.example.cowboysstore.data.model.Order
-import com.example.cowboysstore.data.model.Product
-import com.example.cowboysstore.data.model.Profile
+import com.example.cowboysstore.data.model.*
 import com.example.cowboysstore.data.remote.RemoteApi
 import com.example.cowboysstore.utils.LoadException
 import javax.inject.Inject
 
 class RemoteRepository @Inject constructor(
-    private val remoteApiClient : RemoteApi
+    private val remoteApiClient: RemoteApi
 ) {
 
     suspend fun getProducts(): Result<List<Product>> {
@@ -131,13 +129,50 @@ class RemoteRepository @Inject constructor(
                     return Result.success(orders)
                 }
             } else {
-               return Result.failure(LoadException())
+                return Result.failure(LoadException())
             }
         } catch (e: Exception) {
-            return Result.failure(LoadException(
-                R.string.unknown_error,
-                R.string.unknown_error_message
-            ))
+            return Result.failure(
+                LoadException(
+                    R.string.unknown_error,
+                    R.string.unknown_error_message
+                )
+            )
+        }
+    }
+
+    suspend fun cancelOrder(orderId: String): Result<Order> {
+        try {
+            val response = remoteApiClient.cancelOrder(orderId)
+            return if (response.isSuccessful) {
+                val order = response.body()?.order ?: Order("", "", "", "", 1, "", "", 1, "", "")
+                return Result.success(order)
+            } else {
+                Result.failure(LoadException())
+            }
+        } catch (e: Exception) {
+            return Result.failure(
+                LoadException(
+                    R.string.unknown_error,
+                    R.string.unknown_error_message
+                )
+            )
+        }
+    }
+
+    suspend fun changeProfile(changedFields: List<ProfileChanges>): Result<Boolean> {
+        return try {
+            val response = remoteApiClient.changeProfile(changedFields)
+            if (response.isSuccessful) {
+                Log.d("TEXT_ABC", "Success")
+                Result.success(true)
+            } else {
+                Log.d("TEXT_ABC", "Fail")
+                Result.failure(Exception())
+            }
+        } catch (e: Exception) {
+            Log.d("TEXT_ABC", "Excp")
+            Result.failure(e)
         }
     }
 }

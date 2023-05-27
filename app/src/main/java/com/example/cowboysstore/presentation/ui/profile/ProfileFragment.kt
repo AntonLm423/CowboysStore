@@ -1,11 +1,12 @@
 package com.example.cowboysstore.presentation.ui.profile
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
@@ -23,19 +24,37 @@ import com.example.cowboysstore.presentation.adapters.MenuAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
 import com.example.cowboysstore.presentation.decorators.SpacingItemDecorator
 import com.example.cowboysstore.presentation.ui.orders.OrdersFragment
+import com.example.cowboysstore.presentation.ui.settings.SettingsFragment
 import com.example.cowboysstore.presentation.ui.signin.SignInFragment
+import com.example.cowboysstore.utils.Constants
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
-    private val viewModel : ProfileViewModel by viewModels()
-    private lateinit var binding : FragmentProfileBinding
+    private lateinit var binding: FragmentProfileBinding
+    private val viewModel: ProfileViewModel by viewModels()
 
     private val menuAdapter by lazy { MenuAdapter() }
 
-    private val spacingItemDecorator by lazy { SpacingItemDecorator(false, resources.getDimensionPixelOffset(R.dimen.normal_100)) }
+    private val spacingItemDecorator by lazy {
+        SpacingItemDecorator(
+            false,
+            resources.getDimensionPixelOffset(R.dimen.normal_100)
+        )
+    }
+
+    private val showSnackBarFlag by lazy {
+        requireNotNull(arguments?.getBoolean(Constants.SHOW_SNACK_BAR_KEY, false))
+    }
+
+    companion object {
+        fun createInstance(showSnackBarFlag: Boolean) = ProfileFragment().apply {
+            arguments = bundleOf(Constants.SHOW_SNACK_BAR_KEY to showSnackBarFlag)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +70,10 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (showSnackBarFlag) {
+            showSnackBar(getString(R.string.settings_change_success))
+        }
+
         binding.toolBarProfile.setNavigationOnClickListener {
             parentFragmentManager.popBackStack()
         }
@@ -59,8 +82,8 @@ class ProfileFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { uiState->
-                    when(uiState) {
+                viewModel.uiState.collect { uiState ->
+                    when (uiState) {
                         is ProfileViewModel.ProfileUiState.Loading -> {
                             binding.progressContainerProfile.state = ProgressContainer.State.Loading
                         }
@@ -71,7 +94,7 @@ class ProfileFragment : Fragment() {
                         }
                         is ProfileViewModel.ProfileUiState.Error -> {
                             binding.progressContainerProfile.state = ProgressContainer.State.Notice(
-                               uiState.errorResID,
+                                uiState.errorResID,
                                 uiState.messageResId
                             ) {
                                 viewModel.loadData()
@@ -101,7 +124,7 @@ class ProfileFragment : Fragment() {
         }
         menuAdapter.submitList(
             listOf(
-                MenuAdapter.MenuItem.Regular (1, getString(R.string.profile_menu_orders), R.drawable.ic_delivery),
+                MenuAdapter.MenuItem.Regular(1, getString(R.string.profile_menu_orders), R.drawable.ic_delivery),
                 MenuAdapter.MenuItem.Regular(2, getString(R.string.profile_menu_settings), R.drawable.ic_settings),
                 MenuAdapter.MenuItem.Red(3, getString(R.string.profile_menu_sign_out), R.drawable.ic_logout)
             )
@@ -113,7 +136,7 @@ class ProfileFragment : Fragment() {
                     navigateToOrders()
                 }
                 1 -> {
-                    // TODO: Profile settings Fragment
+                    navigateToSettings(requireNotNull(viewModel.getProfile()))
                 }
                 2 -> {
                     showAlertDialog()
@@ -122,10 +145,10 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun initializeProfile(profile : Profile) {
+    private fun initializeProfile(profile: Profile) {
         with(binding) {
             textViewUserName.text = "${profile.name} ${profile.surname}"
-            textViewUserPosition.text = profile.occupation
+            textViewUserOccupation.text = profile.occupation
             imageViewUserAvatar.load(profile.avatarId) {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(16f))
@@ -163,4 +186,17 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun navigateToSettings(profile: Profile) {
+        parentFragmentManager.commit {
+            replace(R.id.containerMain, SettingsFragment())
+            addToBackStack(Constants.PROFILE_FRAGMENT_KEY)
+        }
+    }
+
+    private fun showSnackBar(message: String) {
+        val snackBar = Snackbar.make(binding.coordinatorLayoutProfile, message, Snackbar.LENGTH_LONG)
+        snackBar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.dark_blue))
+        snackBar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        snackBar.show()
+    }
 }

@@ -39,6 +39,16 @@
             app:layout_constraintStart_toEndOf="@id/imageViewOrderPreview"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <com.example.cowboysstore.presentation.customviews.ProgressPopupButton
+            android:id="@+id/progressPopupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/normal_100"
+            app:layout_constraintVertical_bias="0.16" />
+
         <TextView
             android:id="@+id/textViewOrderStatus"
             style="@style/TextAppearance.Title"
@@ -70,7 +80,6 @@
             app:layout_constraintStart_toEndOf="@id/imageViewOrderPreview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0" />
-
 
         <TextView
             android:id="@+id/textViewDeliveryDate"

@@ -61,6 +61,13 @@ class ProfileViewModel @Inject constructor(
         preferences.accessToken = ""
     }
 
+    fun getProfile(): Profile? {
+        return when (val state = uiState.value) {
+            is ProfileUiState.Success -> state.profile
+            else -> null
+        }
+    }
+
     sealed class ProfileUiState {
 
         object Loading : ProfileUiState()
@@ -73,6 +80,5 @@ class ProfileViewModel @Inject constructor(
             val messageResId : Int
         ) : ProfileUiState()
     }
-
 }
 

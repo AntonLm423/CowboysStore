@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- TextAppearance -->
+    <!-- TextAppearance styles start-->
     <style name="TextAppearance" parent="android:TextAppearance" >
             <item name="fontFamily">@font/roboto_medium</item>
             <item name="fontStyle">normal</item>
@@ -83,9 +83,9 @@
         <item name="android:textSize">@dimen/text_caption_size</item>
         <item name="lineHeight">@dimen/text_caption_line</item>
     </style>
-    <!-- TextAppearance -->
+    <!-- TextAppearance styles end-->
 
-    <!-- TextInputLayout -->
+    <!-- TextInputLayout styles start-->
     <style name="Theme.CowboysStore.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundColor">@color/seashell</item>
         <item name="fontFamily">@font/roboto_regular</item>
@@ -106,9 +106,9 @@
     <style name="Theme.Cowboys.ShapeAppearanceTextInputLayout" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerSize">@dimen/normal_100</item>
     </style>
-    <!-- TextInputLayout -->
+    <!-- TextInputLayout styles end -->
 
-    <!-- Button -->
+    <!-- Button styles start -->
     <style name="Theme.CowboysStore.Button" parent="Widget.Material3.Button.UnelevatedButton">
         <item name="fontFamily">@font/roboto_regular</item>
         <item name="android:textSize">@dimen/text_button_size</item>
@@ -125,18 +125,18 @@
         <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="android:letterSpacing">0.125</item>
     </style>
-    <!--Button -->
+    <!--Button styles end-->
 
-    <!--TabLayout item-->
+    <!--TabLayout item styles start-->
     <style name="TabItem">
             <item name="android:textSize">@dimen/text_button_size</item>
             <item name="lineHeight">@dimen/text_button_line</item>
             <item name="fontFamily">@font/roboto_medium</item>
             <item name="textAllCaps">true</item>
     </style>
-    <!--TabLayout item-->
+    <!--TabLayout item styles end-->
 
-    <!--Alert Dialog Style-->
+    <!--Alert Dialog styles start-->
     <style name="Theme.CowboysStore.AlertDialog" parent="Theme.Material3.Light.Dialog.Alert">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">14sp</item>
@@ -153,6 +153,5 @@
         <item name="android:textColor">@color/smalt</item>
         <item name="android:textStyle">bold</item>
     </style>
-    <!--Alert Dialog Style-->
-
+    <!--Alert Dialog styles end-->
 </resources>
