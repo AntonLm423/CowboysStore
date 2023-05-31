@@ -2,6 +2,7 @@ package com.example.cowboysstore.presentation.ui.settings
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -39,10 +40,11 @@ class SettingsFragment : Fragment() {
     private val selectOccupationDialog by lazy { SelectDialog(requireContext(), proposedOccupations) }
     private val selectImageSourceDialog by lazy { SelectDialog(requireContext(), proposedImageSources) }
 
+    private var isImageChanged = false
+
     private val proposedImageSources by lazy {
         listOf(
-            getString(R.string.settings_image_source_camera),
-            getString(R.string.settings_image_source_gallery)
+            getString(R.string.settings_image_source_camera), getString(R.string.settings_image_source_gallery)
         )
     }
 
@@ -192,14 +194,13 @@ class SettingsFragment : Fragment() {
     }
 
     private fun getImageFromCamera() {
-
-    } // TODO:
+        // TODO:!!!
+    }
 
     private val PICK_IMAGE_GALLERY_REQUEST_CODE = 2
 
     private fun setImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivity(intent)
         startActivityForResult(intent, PICK_IMAGE_GALLERY_REQUEST_CODE)
     }
 

@@ -4,6 +4,8 @@
     <string name="unknown_error">Unknown error</string>
     <string name="unknown_error_message">An unexpected error has occurred</string>
     <string name="validation_error_message">The field is filled incorrectly</string>
+    <string name="price_template">%1$d $</string>
+    <string name="address_template">%1$s, %2$s street, %3$s</string>
 
     <!--Sign In-->
     <string name="sign_in_title">Log in</string>
@@ -50,7 +52,7 @@
     <string name="orders_no_data">As long as it\'s empty</string>
     <string name="orders_no_data_message">Order something and orders will appear here</string>
     <string name="orders_popup_cancel">Cancel</string>
-    <string name="orders_cancel_success">Order №%1$d от %2$s was successfully cancel</string>
+    <string name="orders_cancel_success">Order №%1$d from %2$s was successfully cancel</string>
     <string name="orders_cancel_error">An error occurred during order cancellation</string>
     <string name="orders_button_to_catalog_text">To catalog</string>
     <!--Orders dates-->
@@ -82,8 +84,8 @@
     <string name="checkout_appbar_title">Checkout</string>
     <string name="checkout_button_buy">Buy for %1$d $</string>
     <string name="checkout_tittle_text">%1$s • %2$s</string>
-    <string name="checkout_price_text">%1$d $</string>
     <string name="checkout_error_message">An error occurred during checkout</string>
+    <string name="checkout_success_message">Order №%1$d from %2$s was successfully created </string>
     <string name="checkout_delivery_months">january february march april may june july august september october november december</string>
     <!--Map-->
     <string name="map_title_text">House selection</string>

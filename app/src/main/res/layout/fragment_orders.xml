@@ -7,6 +7,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayoutOrders"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,19 +16,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbarOrders"
-                app:titleTextAppearance="@style/TextAppearance.AppBarTitle"
-                app:titleTextColor="@color/white"
-                app:title="@string/orders_toolbar_text"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/smalt"
+                app:buttonGravity="center_vertical"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:navigationIconTint="@color/white"
-                app:buttonGravity="center_vertical" />
+                app:title="@string/orders_toolbar_text"
+                app:titleTextAppearance="@style/TextAppearance.AppBarTitle"
+                app:titleTextColor="@color/white" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/smalt"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:tabBackground="@color/smalt"
+                app:tabIndicatorColor="@color/white"
+                app:tabIndicatorFullWidth="true"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextAppearance="@style/TabItem"
+                app:tabTextColor="@color/white_50pc">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/orders_tab_all" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/orders_tab_active" />
+
+            </com.google.android.material.tabs.TabLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.example.cowboysstore.presentation.customviews.ProgressContainer
@@ -41,36 +68,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/smalt"
-                app:tabTextAppearance="@style/TabItem"
-                app:tabTextColor="@color/white_50pc"
-                app:tabSelectedTextColor="@color/white"
-                app:tabBackground="@color/smalt"
-                app:tabIndicatorColor="@color/white"
-                app:tabIndicatorFullWidth="true">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/orders_tab_all" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/orders_tab_active" />
-
-            </com.google.android.material.tabs.TabLayout>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPagerTabs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerTabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
         </com.example.cowboysstore.presentation.customviews.ProgressContainer>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

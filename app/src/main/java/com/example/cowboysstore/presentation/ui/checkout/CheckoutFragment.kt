@@ -87,7 +87,7 @@ class CheckoutFragment : Fragment() {
         imageViewPreview.load(product.preview)
         textViewTitle.text = getString(R.string.checkout_tittle_text, selectedSize, product.title)
         textViewCategory.text = product.department
-        textViewPrice.text = getString(R.string.checkout_price_text, product.price)
+        textViewPrice.text = getString(R.string.price_template, product.price)
         buttonBuy.setText(getString(R.string.checkout_button_buy, product.price))
 
         numberPickerCount.numberChangeListener = { count ->
@@ -187,7 +187,7 @@ class CheckoutFragment : Fragment() {
 
     private fun navigateToOrders(orderNumber: Int) {
         parentFragmentManager.commit {
-            replace(R.id.containerMain, OrdersFragment())
+            replace(R.id.containerMain, OrdersFragment.createInstance(true, orderNumber))
         }
     }
 

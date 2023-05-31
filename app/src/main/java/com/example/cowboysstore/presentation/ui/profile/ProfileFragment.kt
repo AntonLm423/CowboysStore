@@ -49,9 +49,7 @@ class ProfileFragment : Fragment() {
         )
     }
 
-    private val showSnackBarFlag by lazy {
-        requireNotNull(arguments?.getBoolean(Constants.SHOW_SNACK_BAR_KEY, false))
-    }
+    private var showSnackBarFlag = arguments?.getBoolean(Constants.SHOW_SNACK_BAR_KEY, false) ?: false
 
     companion object {
         fun createInstance(showSnackBarFlag: Boolean) = ProfileFragment().apply {
@@ -75,6 +73,7 @@ class ProfileFragment : Fragment() {
 
         if (showSnackBarFlag) {
             showSnackBar(getString(R.string.settings_change_success))
+            showSnackBarFlag = false
         }
 
         binding.toolBarProfile.setNavigationOnClickListener {
@@ -148,7 +147,7 @@ class ProfileFragment : Fragment() {
 
     private fun initializeProfile(profile: Profile, userPhoto: Bitmap?) {
         with(binding) {
-            textViewUserName.text = "${profile.name} ${profile.surname}"
+            textViewUserName.text = "${profile.name} ${profile.surname}" // TODO: !!!
             textViewUserOccupation.text = profile.occupation
             if (userPhoto == null) {
                 imageViewUserAvatar.load(userPhoto) {
@@ -166,7 +165,7 @@ class ProfileFragment : Fragment() {
     /* Show log out alert dialog */
     private fun showAlertDialog() {
         val builder = AlertDialog.Builder(requireContext(), R.style.Theme_CowboysStore_AlertDialog)
-        builder.setTitle(getString(R.string.profile_exit_dialog_title))
+        builder.setMessage(getString(R.string.profile_exit_dialog_title))
         builder.setPositiveButton(getString(R.string.profile_exit_dialog_positive)) { _, _ ->
             viewModel.clearAccessToken()
             navigateToSignIn()

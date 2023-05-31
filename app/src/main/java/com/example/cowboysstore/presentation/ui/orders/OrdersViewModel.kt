@@ -13,6 +13,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -93,6 +95,12 @@ class OrdersViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun getCurrentDate(): String {
+        val currentDate = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("dd.MM.yy HH:mm", Locale.getDefault())
+        return dateFormat.format(currentDate)
     }
 
     fun getOrderUiStateFlow(isActiveOrdersOnly: Boolean): StateFlow<OrderUiState> {

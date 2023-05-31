@@ -48,7 +48,7 @@ class ProductAdapter(
         fun bind(product: Product) = with(itemBinding) {
             textViewTitle.text = product.title
             textViewCategory.text = product.department
-            textViewPrice.text = product.price.toString() + " ₽" // TODO:!!!
+            textViewPrice.text = itemView.context.getString(R.string.price_template, product.price)
 
             imageViewPreview.load(product.preview) {
                 crossfade(true)

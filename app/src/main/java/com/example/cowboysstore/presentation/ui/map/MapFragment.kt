@@ -99,10 +99,12 @@ class MapFragment : Fragment() {
             val city = address?.locality ?: ""
             val street = address?.thoroughfare ?: ""
             val houseNumber = address?.featureName ?: ""
-            return "г. $city, ул. $street, $houseNumber" // TODO: В ресурсы
+            return getString(R.string.address_template, city, street, houseNumber)
         } catch (ioException: IOException) {
             null
         } catch (illegalArgumentException: IllegalArgumentException) {
+            null
+        } catch (e: Exception) {
             null
         }
     }

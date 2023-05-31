@@ -19,6 +19,7 @@ import com.example.cowboysstore.presentation.adapters.OrderAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
 import com.example.cowboysstore.presentation.decorators.DividerDecorator
 import com.example.cowboysstore.utils.Constants
+import com.example.cowboysstore.utils.DateFormatter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -27,9 +28,7 @@ import kotlinx.coroutines.launch
 class OrdersListFragment : Fragment() {
 
     private lateinit var binding: FragmentOrdersListBinding
-    private val viewModel: OrdersViewModel by viewModels(
-        ownerProducer = { requireParentFragment() }
-    )
+    private val viewModel: OrdersViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     private val orderAdapter by lazy { OrderAdapter() }
     private val dividerDecorator by lazy { DividerDecorator(requireContext()) }
@@ -39,16 +38,13 @@ class OrdersListFragment : Fragment() {
     }
 
     companion object {
-        fun createInstance(isActiveOrdersOnly: Boolean): OrdersListFragment =
-            OrdersListFragment().apply {
-                arguments = bundleOf(Constants.ORDERS_LIST_KEY to isActiveOrdersOnly)
-            }
+        fun createInstance(isActiveOrdersOnly: Boolean): OrdersListFragment = OrdersListFragment().apply {
+            arguments = bundleOf(Constants.ORDERS_LIST_KEY to isActiveOrdersOnly)
+        }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOrdersListBinding.inflate(inflater, container, false)
         return binding.root
@@ -67,9 +63,7 @@ class OrdersListFragment : Fragment() {
         binding.recyclerViewOrdersList.apply {
             adapter = orderAdapter
             layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false
+                requireContext(), LinearLayoutManager.VERTICAL, false
             )
             addItemDecoration(dividerDecorator)
         }
@@ -89,15 +83,15 @@ class OrdersListFragment : Fragment() {
                             updateOrderStatus(position, ordersList, OrderAdapter.STATUS_CANCELED)
                         }
                         is OrdersViewModel.CancelingOrderUiState.Error -> {
-                            showSnackbar(getString(R.string.orders_cancel_error), true)
+                            showSnackBar(getString(R.string.orders_cancel_error), true)
                             updateOrderStatus(position, ordersList, OrderAdapter.STATUS_IN_WORK)
                         }
                         is OrdersViewModel.CancelingOrderUiState.Success -> {
-                            showSnackbar(
+                            showSnackBar(
                                 getString(
-                                    R.string.orders_cancel_success,
-                                    ordersList[position].number,
-                                    ordersList[position].etd // TODO:!!!
+                                    R.string.orders_cancel_success, ordersList[position].number, DateFormatter.formatDate(
+                                        ordersList[position].etd, Constants.INPUT_DATE_FORMAT, "dd.MM.yy HH:mm"
+                                    )
                                 ), false
                             )
                             updateOrderStatus(position, ordersList, OrderAdapter.STATUS_CANCELED)
@@ -126,8 +120,7 @@ class OrdersListFragment : Fragment() {
                         is OrdersViewModel.OrderUiState.Success -> {
                             if (uiState.ordersList.isEmpty()) {
                                 binding.progressContainerOrdersList.state = ProgressContainer.State.Notice(
-                                    R.string.catalog_notice_error,
-                                    R.string.catalog_notice_error_message // TODO: Перенести в юзкейс, и применять в ошибочном состоянии
+                                    R.string.catalog_notice_error, R.string.catalog_notice_error_message
                                 )
                             } else {
                                 binding.progressContainerOrdersList.state = ProgressContainer.State.Success
@@ -136,8 +129,7 @@ class OrdersListFragment : Fragment() {
                         }
                         is OrdersViewModel.OrderUiState.Error -> {
                             binding.progressContainerOrdersList.state = ProgressContainer.State.Notice(
-                                uiState.errorResId,
-                                uiState.messageResId
+                                uiState.errorResId, uiState.messageResId
                             ) {
                                 viewModel.loadData()
                             }
@@ -151,7 +143,7 @@ class OrdersListFragment : Fragment() {
         }
     }
 
-    private fun showSnackbar(message: String, isError: Boolean) {
+    private fun showSnackBar(message: String, isError: Boolean) {
         val snackBar = Snackbar.make(binding.frameLayoutOrdersList, message, Snackbar.LENGTH_LONG)
         val backgroundColor = if (isError) R.color.red_input_failure else R.color.dark_blue
         snackBar.setBackgroundTint(ContextCompat.getColor(requireContext(), backgroundColor))

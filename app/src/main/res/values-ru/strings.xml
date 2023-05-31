@@ -5,6 +5,8 @@
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="unknown_error_message">Произошла непредвиденная ошибка</string>
     <string name="validation_error_message">Поле заполнено неверно</string>
+    <string name="price_template">%1$d ₽</string>
+    <string name="address_template">г. %1$s, ул. %2$s, %3$s</string>
 
     <!--Авторизация-->
     <string name="sign_in_title">Войти</string>
@@ -83,8 +85,8 @@
     <string name="checkout_appbar_title">Оформление заказа</string>
     <string name="checkout_button_buy">Купить за %1$d ₽</string>
     <string name="checkout_tittle_text">%1$s • %2$s</string>
-    <string name="checkout_price_text">%1$d ₽</string>
     <string name="checkout_error_message">Во время оформления заказа произошла ошибка</string>
+    <string name="checkout_success_message">Заказ №%1$d от %2$s был успешно оформлен </string>
     <string name="checkout_delivery_months">января февраля марта апреля мая июня июля августа сентября октября ноября декабря</string>
 
     <!--Карта-->

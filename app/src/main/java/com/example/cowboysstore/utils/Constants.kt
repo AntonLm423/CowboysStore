@@ -29,6 +29,12 @@ class Constants {
         /* KEY FOR SELECTED SIZE TRANSACTION PRODUCT->CHECKOUT */
         const val SELECTED_SIZE_KEY = "selected_size_key"
 
+        /* KEY FOR CREATED ORDER NUMBER CHECKOUT->ORDER */
+        const val ORDER_NUMBER_KEY = "order_number_key"
+
+        /* KEY FOR CREATED ORDER TIME TRANSACTION CHECKOUT-> ORDER */
+        const val ORDER_CREATED_AT_KEY = "order_created_at_key"
+
         /*KEY FOR LOCATION TRANSACTION MAP->CHECKOUT*/
         const val LOCATION_KEY = "location_key"
         const val LOCATION_BUNDLE_KEY = "location_bundle_key"
