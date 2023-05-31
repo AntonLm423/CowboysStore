@@ -12,5 +12,4 @@ class DomainModule {
 
     @Provides
     fun provideGetAppVersionUseCase() = GetAppVersionUseCase()
-
 }

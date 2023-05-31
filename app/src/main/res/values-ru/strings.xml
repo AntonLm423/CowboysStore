@@ -4,16 +4,14 @@
     <string name="app_name">CowboysStore</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="unknown_error_message">Произошла непредвиденная ошибка</string>
+    <string name="validation_error_message">Поле заполнено неверно</string>
 
     <!--Авторизация-->
     <string name="sign_in_title">Войти</string>
     <string name="sign_in_login_hint">Логин</string>
     <string name="sign_in_password">Пароль</string>
     <string name="sign_in_login">Войти</string>
-    <string name="sign_in_auth_invalid">Неверный логин или пароль</string>
     <string name="sign_in_auth_error">Не удалось проверить данные, попробуйте повторить попытку</string>
-    <string name="sign_in_validation_error">Поле заполнено неверно</string>
-
 
     <!--Каталог-->
     <string name="catalog_button_refresh_text">Обновить</string>
@@ -40,6 +38,7 @@
     <string name="product_hit_of_the_season">Хит сезона</string>
     <string name="product_size_hint">Размер</string>
     <string name="product_button_buy_now">Купить сейчас</string>
+    <string name="product_error_text">Не удалось получить информацию о продукте</string>
 
     <!--Заказы-->
     <string name="orders_tab_active">Активные</string>
@@ -49,12 +48,12 @@
     <string name="orders_order_status_in_work">В работе</string>
     <string name="orders_order_status_canceled">Отменен</string>
     <string name="orders_toolbar_text">Мои заказы</string>
-    <string name="sign_in_auth_user_not_registered">Пользователь не зарегистирован</string>
     <string name="orders_no_data">Заказов не обнаружено</string>
     <string name="orders_no_data_message">Закажите что-нибудь и заказы появятся тут</string>
     <string name="orders_popup_cancel">Отменить</string>
     <string name="orders_cancel_success">Заказ №%1$d от %2$s был успешно отменен</string>
     <string name="orders_cancel_error">Произошла ошибка во время отмены заказа</string>
+    <string name="orders_button_to_catalog_text">В каталог</string>
     <!--Заказы даты-->
     <string name="orders_order_from">Заказ №%1$d от %2$s</string>
     <string name="orders_order_from_format">"'от' dd.MM.yy HH:mm"</string>
@@ -76,5 +75,21 @@
     <string name="settings_other_occupation">Другой вид деятельности</string>
     <string name="settings_change_error">Во время изменения профиля произошла ошибка</string>
     <string name="settings_change_success">Профиль был успешно изменен</string>
+
+    <!--Оформление заказа-->
+    <string name="checkout_house_hint">Дом</string>
+    <string name="checkout_apartment_hint">Квартира</string>
+    <string name="checkout_delivery_date_hint">Дата доставки</string>
+    <string name="checkout_appbar_title">Оформление заказа</string>
+    <string name="checkout_button_buy">Купить за %1$d ₽</string>
+    <string name="checkout_tittle_text">%1$s • %2$s</string>
+    <string name="checkout_price_text">%1$d ₽</string>
+    <string name="checkout_error_message">Во время оформления заказа произошла ошибка</string>
+    <string name="checkout_delivery_months">января февраля марта апреля мая июня июля августа сентября октября ноября декабря</string>
+
+    <!--Карта-->
+    <string name="map_title_text">Выбор дома</string>
+    <string name="map_button_select_text">Выбрать</string>
+    <string name="map_geocoder_error">Проверьте ваше подключение к интернету</string>
 
 </resources>

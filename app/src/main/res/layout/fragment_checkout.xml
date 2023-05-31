@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayoutCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbarCheckout"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/smalt"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:navigationIconTint="@color/white"
+                app:title="@string/checkout_appbar_title"
+                app:titleTextAppearance="@style/TextAppearance.AppBarTitle"
+                app:titleTextColor="@color/white" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/normal_100"
+            android:layout_marginEnd="@dimen/normal_100"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normal_200"
+                android:background="@color/selector_clickable_item_white">
+
+                <ImageView
+                    android:id="@+id/imageViewPreview"
+                    android:layout_width="112dp"
+                    android:layout_height="112dp"
+                    android:layout_marginStart="@dimen/normal_100"
+                    android:layout_marginTop="@dimen/normal_100"
+                    android:layout_marginBottom="@dimen/normal_100"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="200dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="@dimen/normal_100"
+                    android:layout_marginTop="@dimen/normal_100"
+                    android:text="Nike Tampa Bay Buccaneers Super Bowl LV"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/textViewCategory"
+                    app:layout_constraintStart_toEndOf="@id/imageViewPreview"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/normal_100"
+                    android:maxLines="1"
+                    android:text="Shoes"
+                    android:textColor="@color/silver_chalice"
+                    app:layout_constraintStart_toEndOf="@id/imageViewPreview"
+                    app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+                <TextView
+                    android:id="@+id/textViewPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/normal_100"
+                    android:layout_marginTop="@dimen/normal_200"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="9 000 ₽"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/imageViewPreview"
+                    app:layout_constraintTop_toBottomOf="@id/textViewCategory" />
+
+                <com.example.cowboysstore.presentation.customviews.NumberPicker
+                    android:id="@+id/numberPickerCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="@dimen/normal_300"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textViewPrice"
+                    app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutHouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normal_200"
+                android:clickable="true"
+                android:focusable="true"
+                app:endIconDrawable="@drawable/ic_dropdown"
+                app:endIconMode="custom">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewHouse"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/checkout_house_hint"
+                    android:paddingStart="@dimen/normal_100"
+                    android:paddingTop="22dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutApartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normal_200">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextApartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/checkout_apartment_hint"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutDeliveryDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normal_200"
+                android:clickable="true"
+                android:focusable="true"
+                app:endIconDrawable="@drawable/ic_dropdown"
+                app:endIconMode="custom">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewDeliveryDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/checkout_delivery_date_hint"
+                    android:paddingStart="@dimen/normal_100"
+                    android:paddingTop="22dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.example.cowboysstore.presentation.customviews.ProgressButton
+            android:id="@+id/buttonBuy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/normal_100"
+            android:layout_marginEnd="@dimen/normal_100"
+            android:layout_marginBottom="@dimen/normal_100"
+            app:layout_anchor="@+id/linearLayoutCheckout"
+            app:layout_anchorGravity="bottom|center"
+            app:textAllCaps="true" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

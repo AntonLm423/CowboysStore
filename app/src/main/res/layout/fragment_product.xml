@@ -54,7 +54,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"></androidx.viewpager2.widget.ViewPager2>
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewProductPreview"
@@ -95,16 +95,24 @@
                             android:text="9 000 ₽"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/textViewBadge"
-                            style="@style/TextAppearance.Body2"
-                            android:layout_width="99dp"
-                            android:layout_height="24dp"
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardViewBadge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:background="@drawable/badge"
-                            android:gravity="center"
-                            android:text="@string/product_hit_of_the_season"
-                            android:textColor="@color/white" />
+                            android:visibility="gone"
+                            app:cardCornerRadius="@dimen/normal_200"
+                            app:cardElevation="0dp">
+
+                            <TextView
+                                android:id="@+id/textViewBadge"
+                                style="@style/TextAppearance.Body2"
+                                android:layout_width="99dp"
+                                android:layout_height="24dp"
+                                android:gravity="center"
+                                android:text="@string/product_hit_of_the_season"
+                                android:textColor="@color/white" />
+                        </androidx.cardview.widget.CardView>
                     </FrameLayout>
 
                     <TextView
@@ -147,9 +155,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/normal_100"
                         android:layout_marginEnd="@dimen/normal_100"
+                        android:layout_marginBottom="@dimen/normal_100"
                         android:clickable="true"
                         android:focusable="true"
-                        android:layout_marginBottom="@dimen/normal_100"
                         app:endIconDrawable="@drawable/ic_dropdown"
                         app:endIconMode="custom"
                         app:layout_constraintBottom_toTopOf="@id/textViewDescription"
@@ -207,7 +215,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/normal_100"
                         android:layout_marginEnd="@dimen/normal_100"
-                        android:layout_marginBottom="@dimen/normal_400"
+                        android:layout_marginBottom="94dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

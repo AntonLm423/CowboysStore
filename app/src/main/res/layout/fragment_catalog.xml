@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -26,25 +26,26 @@
 
                 <TextView
                     android:id="@+id/textViewToolbarTitle"
+                    style="@style/TextAppearance.AppBarTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppBarTitle"
-                    android:text="@string/catalog_toolbar_text"
-                    android:textColor="@color/white"
                     android:layout_gravity="start"
-                    android:layout_marginStart="@dimen/normal_100" />
+                    android:layout_marginStart="@dimen/normal_100"
+                    android:text="@string/catalog_toolbar_text"
+                    android:textAppearance="@style/TextAppearance.AppBarTitle"
+                    android:textColor="@color/white" />
 
                 <ImageButton
                     android:id="@+id/buttonProfile"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_profile"
                     android:layout_gravity="end"
-                    android:background="@android:color/transparent"
                     android:layout_marginEnd="@dimen/normal_100"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_profile" />
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -56,11 +57,11 @@
             app:layout_anchorGravity="bottom"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-               <androidx.recyclerview.widget.RecyclerView
-                   android:id="@+id/recyclerViewProducts"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   tools:listitem="@layout/item_product" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewProducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_product" />
 
         </com.example.cowboysstore.presentation.customviews.ProgressContainer>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

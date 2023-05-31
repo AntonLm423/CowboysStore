@@ -3,7 +3,7 @@ package com.example.cowboysstore.presentation.ui.product
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.Product
+import com.example.cowboysstore.domain.entities.Product
 import com.example.cowboysstore.domain.usecases.GetProductUseCase
 import com.example.cowboysstore.utils.LoadException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,7 +40,7 @@ class ProductViewModel @Inject constructor(
                 _uiState.update {
                     ProductUiState.Error(
                         e.errorResId ?: R.string.unknown_error,
-                        e.messageResId ?: R.string.unknown_error_message
+                        e.detailedErrorResId ?: R.string.unknown_error_message
                     )
                 }
             }
@@ -49,7 +49,9 @@ class ProductViewModel @Inject constructor(
 
     sealed class ProductUiState {
         object Loading : ProductUiState()
+
         class Success(val product: Product) : ProductUiState()
+
         class Error(val errorResId : Int, val messageResId : Int) : ProductUiState()
     }
 }

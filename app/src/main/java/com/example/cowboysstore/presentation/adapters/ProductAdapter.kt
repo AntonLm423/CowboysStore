@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.Product
 import com.example.cowboysstore.databinding.ItemProductBinding
+import com.example.cowboysstore.domain.entities.Product
 
 class ProductAdapter(
-    private val listener : Listener
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Product>() {
@@ -25,6 +24,9 @@ class ProductAdapter(
 
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
+    var onClickListener: (String) -> Unit = {}
+    var onButtonBuyClickListener: (Product) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder =
         ProductViewHolder(
             ItemProductBinding.inflate(
@@ -35,7 +37,7 @@ class ProductAdapter(
         )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(differ.currentList[position], listener)
+        holder.bind(differ.currentList[position])
     }
 
     override fun getItemCount(): Int = differ.currentList.size
@@ -43,10 +45,11 @@ class ProductAdapter(
     inner class ProductViewHolder(private val itemBinding: ItemProductBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(product: Product, listener : Listener) = with(itemBinding) {
+        fun bind(product: Product) = with(itemBinding) {
             textViewTitle.text = product.title
             textViewCategory.text = product.department
-            textViewPrice.text = product.price.toString() + " ₽"
+            textViewPrice.text = product.price.toString() + " ₽" // TODO:!!!
+
             imageViewPreview.load(product.preview) {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(16f))
@@ -55,7 +58,11 @@ class ProductAdapter(
             }
 
             itemProduct.setOnClickListener {
-                listener.onClick(product.id)
+                onClickListener(product.id)
+            }
+
+            buttonBuy.setOnClickListener {
+                onButtonBuyClickListener(product)
             }
         }
     }
@@ -63,10 +70,5 @@ class ProductAdapter(
     fun submitList(product: List<Product>) {
         differ.submitList(product)
     }
-
-    interface Listener {
-        fun onClick(productId : String)
-    }
-
 }
 

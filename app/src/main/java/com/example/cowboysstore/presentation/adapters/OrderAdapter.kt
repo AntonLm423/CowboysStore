@@ -12,12 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.Order
+import com.example.cowboysstore.domain.entities.Order
 import com.example.cowboysstore.databinding.ItemOrderBinding
 import com.example.cowboysstore.utils.Constants
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
 
 class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 

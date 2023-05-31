@@ -1,6 +1,9 @@
 package com.example.cowboysstore.presentation.ui.profile
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.Profile
+import com.example.cowboysstore.domain.entities.Profile
 import com.example.cowboysstore.databinding.FragmentProfileBinding
 import com.example.cowboysstore.presentation.adapters.MenuAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
@@ -89,7 +92,7 @@ class ProfileFragment : Fragment() {
                         }
                         is ProfileViewModel.ProfileUiState.Success -> {
                             binding.progressContainerProfile.state = ProgressContainer.State.Success
-                            initializeProfile(uiState.profile)
+                            initializeProfile(uiState.profile, uiState.userPhoto)
                             binding.textViewAppVersion.append(" ${uiState.appVersion}")
                         }
                         is ProfileViewModel.ProfileUiState.Error -> {
@@ -112,7 +115,6 @@ class ProfileFragment : Fragment() {
     * Sign out.
     */
     private fun initializeMenu() {
-
         binding.recyclerViewMenu.apply {
             layoutManager = LinearLayoutManager(
                 requireContext(),
@@ -129,7 +131,6 @@ class ProfileFragment : Fragment() {
                 MenuAdapter.MenuItem.Red(3, getString(R.string.profile_menu_sign_out), R.drawable.ic_logout)
             )
         )
-
         menuAdapter.onItemClickListener = {
             when (it) {
                 0 -> {
@@ -145,27 +146,32 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun initializeProfile(profile: Profile) {
+    private fun initializeProfile(profile: Profile, userPhoto: Bitmap?) {
         with(binding) {
             textViewUserName.text = "${profile.name} ${profile.surname}"
             textViewUserOccupation.text = profile.occupation
-            imageViewUserAvatar.load(profile.avatarId) {
-                crossfade(true)
-                transformations(RoundedCornersTransformation(16f))
-                error(R.drawable.no_data)
-                placeholder(R.drawable.no_data)
+            if (userPhoto == null) {
+                imageViewUserAvatar.load(userPhoto) {
+                    crossfade(true)
+                    transformations(RoundedCornersTransformation(16f))
+                    error(R.drawable.no_data)
+                    placeholder(R.drawable.no_data)
+                }
+            } else {
+                imageViewUserAvatar.setImageBitmap(userPhoto)
             }
         }
     }
 
+    /* Show log out alert dialog */
     private fun showAlertDialog() {
         val builder = AlertDialog.Builder(requireContext(), R.style.Theme_CowboysStore_AlertDialog)
         builder.setTitle(getString(R.string.profile_exit_dialog_title))
-        builder.setPositiveButton(getString(R.string.profile_exit_dialog_positive)) { dialog, which ->
+        builder.setPositiveButton(getString(R.string.profile_exit_dialog_positive)) { _, _ ->
             viewModel.clearAccessToken()
             navigateToSignIn()
         }
-        builder.setNegativeButton(getString(R.string.profile_exit_dialog_negative)) { dialog, which ->
+        builder.setNegativeButton(getString(R.string.profile_exit_dialog_negative)) { dialog, _ ->
             dialog.cancel()
         }
         val dialog = builder.create()

@@ -3,7 +3,7 @@ package com.example.cowboysstore.presentation.ui.orders
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.Order
+import com.example.cowboysstore.domain.entities.Order
 import com.example.cowboysstore.domain.usecases.CancelOrderUseCase
 import com.example.cowboysstore.domain.usecases.GetOrdersUseCase
 import com.example.cowboysstore.domain.usecases.GetProductUseCase
@@ -63,12 +63,12 @@ class OrdersViewModel @Inject constructor(
             } catch (e: LoadException) {
                 _allOrdersUiSate.update {
                     OrderUiState.Error(
-                        e.errorResId ?: R.string.unknown_error, e.messageResId ?: R.string.unknown_error_message
+                        e.errorResId ?: R.string.unknown_error, e.detailedErrorResId ?: R.string.unknown_error_message
                     )
                 }
                 _activeOrdersUiState.update {
                     OrderUiState.Error(
-                        e.errorResId ?: R.string.unknown_error, e.messageResId ?: R.string.unknown_error_message
+                        e.errorResId ?: R.string.unknown_error, e.detailedErrorResId ?: R.string.unknown_error_message
                     )
                 }
             }
@@ -82,7 +82,7 @@ class OrdersViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val order = withContext(Dispatchers.IO) {
-                    cancelOrderUseCase.CancelOrder(orderId)
+                    cancelOrderUseCase.cancelOrder(orderId)
                 }
                 _cancelingOrderUiState.update {
                     CancelingOrderUiState.Success(order)
@@ -114,15 +114,19 @@ class OrdersViewModel @Inject constructor(
 
     sealed class OrderUiState {
         object Loading : OrderUiState()
+
         class Success(val ordersList: List<Order>) : OrderUiState()
-        class Error(
-            val errorResId: Int, val messageResId: Int
-        ) : OrderUiState()
+
+        class Error(val errorResId: Int, val messageResId: Int) : OrderUiState()
+
+        object Empty : OrderUiState()
     }
 
     sealed class CancelingOrderUiState {
         object Loading : CancelingOrderUiState()
+
         class Success(val order: Order) : CancelingOrderUiState()
+
         object Error : CancelingOrderUiState()
     }
 }

@@ -3,15 +3,14 @@
     <string name="app_name">CowboysStore</string>
     <string name="unknown_error">Unknown error</string>
     <string name="unknown_error_message">An unexpected error has occurred</string>
+    <string name="validation_error_message">The field is filled incorrectly</string>
 
     <!--Sign In-->
     <string name="sign_in_title">Log in</string>
     <string name="sign_in_login_hint">Login</string>
     <string name="sign_in_password">Password</string>
     <string name="sign_in_login">Login</string>
-    <string name="sign_in_auth_invalid">Wrong login or password</string>
     <string name="sign_in_auth_error">Failed to validate data, please try again</string>
-    <string name="sign_in_validation_error">The field is filled incorrectly</string>
 
     <!--Catalog-->
     <string name="catalog_button_refresh_text">Update</string>
@@ -38,6 +37,7 @@
     <string name="product_hit_of_the_season">Hit of the season</string>
     <string name="product_size_hint">Size</string>
     <string name="product_button_buy_now">Buy now</string>
+    <string name="product_error_text">Failed to get product information</string>
 
     <!--Orders-->
     <string name="orders_tab_all">All</string>
@@ -47,12 +47,12 @@
     <string name="orders_order_status_in_work">In work</string>
     <string name="orders_order_status_canceled">Canceled</string>
     <string name="orders_toolbar_text">My orders</string>
-    <string name="sign_in_auth_user_not_registered">User not registered</string>
     <string name="orders_no_data">As long as it\'s empty</string>
     <string name="orders_no_data_message">Order something and orders will appear here</string>
     <string name="orders_popup_cancel">Cancel</string>
     <string name="orders_cancel_success">Order №%1$d от %2$s was successfully cancel</string>
     <string name="orders_cancel_error">An error occurred during order cancellation</string>
+    <string name="orders_button_to_catalog_text">To catalog</string>
     <!--Orders dates-->
     <string name="orders_order_from">Order #%1$d from %2$s</string>
     <string name="orders_order_from_format">"'at' dd.MM.yy HH:mm"</string>
@@ -74,5 +74,20 @@
     <string name="settings_other_occupation">Other occupation</string>
     <string name="settings_change_error">An error occurred while editing a profile</string>
     <string name="settings_change_success">Profile was successfully changed</string>
+    <string name="checkout_house_hint">House</string>
+
+    <!--Checkout-->
+    <string name="checkout_apartment_hint">Apartment</string>
+    <string name="checkout_delivery_date_hint">Delivery date</string>
+    <string name="checkout_appbar_title">Checkout</string>
+    <string name="checkout_button_buy">Buy for %1$d $</string>
+    <string name="checkout_tittle_text">%1$s • %2$s</string>
+    <string name="checkout_price_text">%1$d $</string>
+    <string name="checkout_error_message">An error occurred during checkout</string>
+    <string name="checkout_delivery_months">january february march april may june july august september october november december</string>
+    <!--Map-->
+    <string name="map_title_text">House selection</string>
+    <string name="map_button_select_text">Select</string>
+    <string name="map_geocoder_error">Check your intener connection</string>
 
 </resources>

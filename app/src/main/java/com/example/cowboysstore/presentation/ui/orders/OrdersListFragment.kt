@@ -13,15 +13,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.Order
+import com.example.cowboysstore.domain.entities.Order
 import com.example.cowboysstore.databinding.FragmentOrdersListBinding
 import com.example.cowboysstore.presentation.adapters.OrderAdapter
 import com.example.cowboysstore.presentation.customviews.ProgressContainer
 import com.example.cowboysstore.presentation.decorators.DividerDecorator
 import com.example.cowboysstore.utils.Constants
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class OrdersListFragment : Fragment() {
 
     private lateinit var binding: FragmentOrdersListBinding
@@ -139,6 +141,9 @@ class OrdersListFragment : Fragment() {
                             ) {
                                 viewModel.loadData()
                             }
+                        }
+                        is OrdersViewModel.OrderUiState.Empty -> {
+                            // do nothing
                         }
                     }
                 }

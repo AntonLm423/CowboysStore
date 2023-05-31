@@ -6,19 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.local.prefs.Preferences
 import com.example.cowboysstore.databinding.FragmentSignInBinding
 import com.example.cowboysstore.presentation.ui.catalog.CatalogFragment
 import com.example.cowboysstore.utils.Validator
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignInFragment() : Fragment() {
@@ -33,10 +30,9 @@ class SignInFragment() : Fragment() {
     ): View? {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
 
-
-        /* if(checkAuthToken()) {
-               navigateToCatalog()
-           }*/
+       /* if (viewModel.checkAuthToken()) {
+            navigateToCatalog()
+        }*/
 
         return binding.root
     }
@@ -44,8 +40,9 @@ class SignInFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /***************Только для проверки***************/
         /************************************************/
-        binding.editTextLogin.setText("qwerty@mail.ru")
+        binding.editTextLogin.setText("qwerty123@mail.ru")
         binding.editTextPassword.setText("12345678")
         /************************************************/
 
@@ -76,14 +73,14 @@ class SignInFragment() : Fragment() {
 
         when {
             !Validator.isEmailValid(email) && !Validator.isPasswordValid(password) -> {
-                textInputLayoutLogin.error = getString(R.string.sign_in_validation_error)
-                textInputLayoutPassword.error = getString(R.string.sign_in_validation_error)
+                textInputLayoutLogin.error = getString(R.string.validation_error_message)
+                textInputLayoutPassword.error = getString(R.string.validation_error_message)
             }
             !Validator.isEmailValid(email) -> {
-                textInputLayoutLogin.error = getString(R.string.sign_in_validation_error)
+                textInputLayoutLogin.error = getString(R.string.validation_error_message)
             }
             !Validator.isPasswordValid(password) -> {
-                textInputLayoutPassword.error = getString(R.string.sign_in_validation_error)
+                textInputLayoutPassword.error = getString(R.string.validation_error_message)
             }
             else -> {
                 viewModel.authorize(email, password)
@@ -99,7 +96,7 @@ class SignInFragment() : Fragment() {
                         }
                         is SignInViewModel.AuthorizationState.Error -> {
                             buttonSignIn.isLoading = false
-                            showErrorSnackbar(state.errorResId)
+                            showErrorSnackBar(state.errorMessage)
                         }
                     }
                 }
@@ -107,8 +104,8 @@ class SignInFragment() : Fragment() {
         }
     }
 
-    private fun showErrorSnackbar(errorResId: Int) {
-        val snackBar = Snackbar.make(binding.frameLayoutSignIn, errorResId, Snackbar.LENGTH_LONG)
+    private fun showErrorSnackBar(message: String) {
+        val snackBar = Snackbar.make(binding.frameLayoutSignIn, message, Snackbar.LENGTH_LONG)
         snackBar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red_input_failure))
         snackBar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         snackBar.show()

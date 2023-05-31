@@ -1,13 +1,15 @@
 package com.example.cowboysstore.presentation.ui.profile
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cowboysstore.R
 import com.example.cowboysstore.data.local.prefs.Preferences
 import com.example.cowboysstore.domain.usecases.GetAppVersionUseCase
 import com.example.cowboysstore.utils.LoadException
-import com.example.cowboysstore.data.model.Profile
+import com.example.cowboysstore.domain.entities.Profile
 import com.example.cowboysstore.domain.usecases.GetProfileUseCase
+import com.example.cowboysstore.domain.usecases.GetUserPhotoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,19 +17,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.PrimitiveIterator
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase,
-    private val getAppVersionUseCase: GetAppVersionUseCase
+    private val getAppVersionUseCase: GetAppVersionUseCase,
+    private val getUserPhotoUseCase: GetUserPhotoUseCase
 ) : ViewModel() {
 
     @Inject
     lateinit var preferences: Preferences
 
-    private val _uiState : MutableStateFlow<ProfileUiState> = MutableStateFlow(ProfileUiState.Loading)
-    val uiState : StateFlow<ProfileUiState> = _uiState
+    private val _uiState: MutableStateFlow<ProfileUiState> = MutableStateFlow(ProfileUiState.Loading)
+    val uiState: StateFlow<ProfileUiState> = _uiState
 
     fun loadData() {
         _uiState.update {
@@ -42,15 +46,18 @@ class ProfileViewModel @Inject constructor(
                     getProfileUseCase.getProfile()
                 }
 
-                _uiState.update {
-                    ProfileUiState.Success(profile, appVersion)
+                val userPhoto = withContext(Dispatchers.IO) {
+                    getUserPhotoUseCase.getUserPhoto(profile.avatarId)
                 }
-            }
-            catch (e : LoadException) {
+
+                _uiState.update {
+                    ProfileUiState.Success(profile, appVersion, userPhoto)
+                }
+            } catch (e: LoadException) {
                 _uiState.update {
                     ProfileUiState.Error(
                         e.errorResId ?: R.string.unknown_error,
-                        e.messageResId ?: R.string.unknown_error_message
+                        e.detailedErrorResId ?: R.string.unknown_error_message
                     )
                 }
             }
@@ -71,14 +78,10 @@ class ProfileViewModel @Inject constructor(
     sealed class ProfileUiState {
 
         object Loading : ProfileUiState()
-        class Success(
-            val profile : Profile,
-            val appVersion : String
-            ) : ProfileUiState()
-        class Error(
-            val errorResID : Int,
-            val messageResId : Int
-        ) : ProfileUiState()
+
+        class Success(val profile: Profile, val appVersion: String, val userPhoto: Bitmap?) : ProfileUiState()
+
+        class Error(val errorResID: Int, val messageResId: Int) : ProfileUiState()
     }
 }
 

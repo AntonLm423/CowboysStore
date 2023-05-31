@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/frameLayoutMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="top"
+            android:layout_marginHorizontal="@dimen/normal_100"
+            android:layout_marginTop="@dimen/normal_100"
+            app:cardCornerRadius="@dimen/normal_50">
+
+            <ImageButton
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/normal_100"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_cross_close" />
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="68dp"
+                android:text="@string/map_title_text"
+                android:textColor="@color/dark_blue" />
+
+            <Button
+                android:id="@+id/buttonSelect"
+                style="@style/Theme.CowboysStore.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:layout_gravity="end|center_vertical"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:padding="0dp"
+                android:layout_marginEnd="@dimen/normal_100"
+                android:text="@string/map_button_select_text"
+                android:textAllCaps="true"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_address_picker" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="52dp"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="@dimen/normal_100"
+            android:layout_marginBottom="@dimen/normal_100"
+            app:cardCornerRadius="@dimen/normal_50">
+
+            <TextView
+                android:id="@+id/textViewCurrentLocation"
+                style="@style/MaterialAlertDialog.Material3.Body.Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/normal_100"
+                android:gravity="center"
+                android:text="г. Саранск, ул. Ярославская, 11к1" />
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</layout>

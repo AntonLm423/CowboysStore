@@ -1,11 +1,13 @@
 package com.example.cowboysstore.presentation.ui.product
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.Product
+import com.example.cowboysstore.domain.entities.Product
 import com.example.cowboysstore.databinding.FragmentProductBinding
 import com.example.cowboysstore.presentation.adapters.ProductPreviewAdapter
 import com.example.cowboysstore.presentation.adapters.ProductPreviewCarouselAdapter
@@ -22,6 +24,7 @@ import com.example.cowboysstore.presentation.customviews.ProgressContainer
 import com.example.cowboysstore.presentation.decorators.SelectedItemDecorator
 import com.example.cowboysstore.presentation.decorators.SpacingItemDecorator
 import com.example.cowboysstore.presentation.dialogs.SelectDialog
+import com.example.cowboysstore.presentation.ui.checkout.CheckoutFragment
 import com.example.cowboysstore.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -98,19 +101,6 @@ class ProductFragment : Fragment() {
         }
     }
 
-    /*
-    Refresh fragment content:
-    * textViewTitle
-    * textViewPrice
-    * textViewPrice
-    * textViewCategory
-    * textViewDescription
-    * viewPagerProductPreview and recyclerViewProductPreview synchronizing
-    * recyclerViewStructure
-    * autoCompletedTextViewSize
-    * bottomSheetDialogSizSelection
-    * by product object
-    */
     private fun refreshContent(product: Product) =
         with(binding) {
             toolbarProduct.title = product.title
@@ -118,8 +108,12 @@ class ProductFragment : Fragment() {
             textViewTitle.text = product.title
             textViewPrice.text = product.price.toString() + " ₽"
             textViewCategory.text = product.department
-            // TODO : BADGE COLOR
-            textViewBadge.visibility = if (true) View.VISIBLE else View.GONE
+
+            if (product.badge.isNotEmpty()) {
+                textViewBadge.text = product.badge.first().value
+                textViewBadge.setBackgroundColor(Color.parseColor(product.badge.first().color))
+                cardViewBadge.visibility = View.VISIBLE
+            }
 
             /* Synchronize viewPagerPreview and RecyclerViewPreview */
             synchronizeCarousel(product.images)
@@ -151,6 +145,10 @@ class ProductFragment : Fragment() {
             }
 
             productStructureAdapter.submitList(product.details)
+
+            buttonBuyNow.setOnClickListener {
+                navigateToCheckout(product, autoCompleteTextViewSize.text.toString())
+            }
         }
 
     /* Synchronize viewPagerPreview and RecyclerViewPreview */
@@ -185,6 +183,13 @@ class ProductFragment : Fragment() {
             productPreviewAdapter.itemClickListener = { position ->
                 viewPagerProductPreview.currentItem = position
             }
+        }
+    }
+
+    private fun navigateToCheckout(product: Product, selectedSize: String) {
+        parentFragmentManager.commit {
+            addToBackStack(null)
+            replace(R.id.containerMain, CheckoutFragment.createInstance(product, selectedSize))
         }
     }
 }

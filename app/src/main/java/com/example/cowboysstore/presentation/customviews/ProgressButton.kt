@@ -43,6 +43,10 @@ class ProgressButton @JvmOverloads constructor(
         button.setText(resId)
     }
 
+    fun setText(text: String) {
+        button.text = text
+    }
+
     override fun setOnClickListener(l: OnClickListener?) {
         button.setOnClickListener(l)
     }

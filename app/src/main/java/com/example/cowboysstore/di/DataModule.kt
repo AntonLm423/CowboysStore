@@ -6,7 +6,8 @@ import com.example.cowboysstore.data.local.prefs.PreferencesImpl
 import com.example.cowboysstore.data.remote.AcceptInterceptor
 import com.example.cowboysstore.data.remote.AuthorizationInterceptor
 import com.example.cowboysstore.data.remote.RemoteApi
-import com.example.cowboysstore.data.repository.RemoteRepository
+import com.example.cowboysstore.data.repository.RemoteRepositoryImpl
+import com.example.cowboysstore.domain.repository.RemoteRepository
 import com.example.cowboysstore.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -26,7 +27,7 @@ class DataModule {
     @Provides
     @Singleton
     fun provideRemoteRepository(apiClient: RemoteApi): RemoteRepository =
-        RemoteRepository(apiClient)
+        RemoteRepositoryImpl(apiClient)
 
     @Provides
     @Singleton

@@ -38,6 +38,16 @@ class ProgressContainer @JvmOverloads constructor(
         }
     }
 
+    fun setButtonText(message : String) {
+        val button = layoutNotice.findViewById<Button>(R.id.buttonRefresh)
+        button.text = message
+    }
+
+    fun setButtonText(messageResId: Int) {
+        val button = layoutNotice.findViewById<Button>(R.id.buttonRefresh)
+        button.setText(messageResId)
+    }
+
     private fun findContextView() : View? = children.firstOrNull {
         it.id != R.id.layoutLoading && it.id != R.id.layoutNotice
     }
@@ -76,8 +86,8 @@ class ProgressContainer @JvmOverloads constructor(
                 findContextView()?.isVisible = true
             }
         }
-
     }
+
     sealed class State {
         object Loading : State()
 

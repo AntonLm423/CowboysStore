@@ -1,13 +1,15 @@
 package com.example.cowboysstore.presentation.ui.settings
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cowboysstore.data.model.Profile
+import com.example.cowboysstore.domain.entities.Profile
 import com.example.cowboysstore.data.model.ProfileChanges
 import com.example.cowboysstore.domain.usecases.ChangeProfileUseCase
 import com.example.cowboysstore.domain.usecases.GetProfileUseCase
+import com.example.cowboysstore.domain.usecases.GetUserPhotoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase,
+    private val getUserPhotoUseCase: GetUserPhotoUseCase,
     private val changeProfileUseCase: ChangeProfileUseCase
 ) : ViewModel() {
 
@@ -42,8 +45,12 @@ class SettingsViewModel @Inject constructor(
                     getProfileUseCase.getProfile()
                 }
 
+                val userPhoto = withContext(Dispatchers.IO) {
+                    getUserPhotoUseCase.getUserPhoto(profile.avatarId)
+                }
+
                 _uiState.update {
-                    SettingsUiState.Success(profile)
+                    SettingsUiState.Success(profile, userPhoto)
                 }
             } catch (e: Exception) {
                 _uiState.update {
@@ -68,15 +75,11 @@ class SettingsViewModel @Inject constructor(
             changedFields.add(ProfileChanges(pathOccupation, "replace", newProfile.occupation))
         }
 
-        /*if (oldProfile.avatarId != newProfile.avatarId) {
-           changes.add(ProfileChanges("avatarId", newProfile.avatarId))
-       }*/
         viewModelScope.launch {
             try {
                 changeProfileUseCase.changeProfile(changedFields)
                 _profileEditResult.postValue(true)
-            }
-            catch (e : Exception) {
+            } catch (e: Exception) {
                 _profileEditResult.postValue(false)
             }
         }
@@ -84,8 +87,7 @@ class SettingsViewModel @Inject constructor(
 
     sealed class SettingsUiState {
         object Empty : SettingsUiState()
-        data class Success(
-            var profile: Profile
-        ) : SettingsUiState()
+
+        data class Success(val profile: Profile, val userPhoto : Bitmap?) : SettingsUiState()
     }
 }

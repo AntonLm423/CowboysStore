@@ -1,7 +1,7 @@
 package com.example.cowboysstore.domain.usecases
 
 import com.example.cowboysstore.data.model.ProfileChanges
-import com.example.cowboysstore.data.repository.RemoteRepository
+import com.example.cowboysstore.domain.repository.RemoteRepository
 import com.example.cowboysstore.utils.LoadException
 import javax.inject.Inject
 

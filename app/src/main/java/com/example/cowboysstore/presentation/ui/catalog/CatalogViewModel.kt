@@ -3,7 +3,7 @@ package com.example.cowboysstore.presentation.ui.catalog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cowboysstore.R
-import com.example.cowboysstore.data.model.Product
+import com.example.cowboysstore.domain.entities.Product
 import com.example.cowboysstore.domain.usecases.GetProductsUseCase
 import com.example.cowboysstore.utils.LoadException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,7 +50,7 @@ class CatalogViewModel @Inject constructor(
                 _uiState.update {
                     CatalogUiState.Error(
                         e.errorResId ?: R.string.unknown_error,
-                        e.messageResId ?: R.string.unknown_error_message
+                        e.detailedErrorResId ?: R.string.unknown_error_message
                     )
                 }
             }
@@ -58,11 +58,11 @@ class CatalogViewModel @Inject constructor(
     }
 
     sealed class CatalogUiState {
-
         object Loading : CatalogUiState()
-        class Success(val productsList : List<Product>) : CatalogUiState()
-        class Error(val errorResId : Int, val messageResId : Int) : CatalogUiState()
 
+        class Success(val productsList : List<Product>) : CatalogUiState()
+
+        class Error(val errorResId : Int, val messageResId : Int) : CatalogUiState()
     }
 }
 
